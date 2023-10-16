@@ -1,6 +1,7 @@
 package modelo;
 
-import java.awt.image.BufferedImage;
+
+import java.awt.Image;
 import java.util.Date;
 
 
@@ -9,9 +10,9 @@ public class Licencia {
 	private int numero;
 	private String pais;
 	private Date fechaVencimiento;
-	private BufferedImage imagenLicencia;
+	private Image imagenLicencia;
 	
-	public Licencia(int numerop,String paisp,Date fechaVencimientop,BufferedImage imagenLicenciap) {
+	public Licencia(int numerop,String paisp,Date fechaVencimientop,Image imagenLicenciap) {
 		numero=numerop;
 		pais=paisp;
 		fechaVencimiento= fechaVencimientop;
@@ -30,7 +31,7 @@ public String getPais() {
 	return pais;
 }
 	
-public BufferedImage getImagenLicencia() {
+public Image getImagenLicencia() {
 	return imagenLicencia;
 }
 

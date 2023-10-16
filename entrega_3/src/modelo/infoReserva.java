@@ -3,6 +3,11 @@ package modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 //import uniandes.dpoo.taller0.modelo.ProductoMenu;
 
@@ -22,6 +27,8 @@ public class infoReserva {
 	private String sedeDevuelta;
 	private Boolean enCurso; 
 	private Date fechaInicio;
+	
+	
 	
 	//agregar cliente 
 	//agregar como parametro de entrada el atributo carroEnReserva
@@ -152,6 +159,7 @@ public void compararFecha(Date fecha) {
 		//carroEnReserva.nuevoAlquiler();
 	}
 }
+
 
 //public void cancelarReserva()
 }
