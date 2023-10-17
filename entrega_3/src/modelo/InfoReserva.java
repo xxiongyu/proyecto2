@@ -17,8 +17,8 @@ public class InfoReserva {
 	
 	private int id;
 	private String tiempoReserva;
-	//private Cliente cliente;
-	//private Carro carroEnReserva;
+	private Cliente cliente;
+	private Carro carroEnReserva;
 	private float precio30;
 	private float precioServicioCompleto;
 	private ArrayList<Conductor>  conductor; 
@@ -34,7 +34,7 @@ public class InfoReserva {
 	//agregar cliente 
 	//agregar como parametro de entrada el atributo carroEnReserva
 	public InfoReserva(String tiempoReservap,float precio30p,ArrayList<Conductor>  conductorp,
-			           String medioDePagop,Seguro segurop, String sedeEntregap,Date fechaIniciop)
+			           String medioDePagop,Seguro segurop, String sedeEntregap,Date fechaIniciop,Cliente clientep,Carro carroEnReservap)
 	
 	{
 		//cliente=clientep;
@@ -47,20 +47,21 @@ public class InfoReserva {
 		sedeEntrega=sedeEntregap;
 		fechaInicio=fechaIniciop;
 		enCurso= false;
+		cliente=clientep;
+		carroEnReserva=carroEnReservap;
+		
 	}
 	
 	
-//public int getCliente(){  
-//	return cliente;
-//}
+public String getCliente(){  
+	return cliente.getLogin();
+}
 
-//public int getCarroEnReserva(){ 
-//	return carroEnReserva;
-//}
+public String getCarroEnReserva(){ 
+	return carroEnReserva.getPlaca();
+}
 
-//public int setCarroEnReserva(Carro nuevoCarro){  
-//	return this.carroEnReserva = nuevoCarro;
-//}
+
 	
 	
 public int getId(){ 
@@ -189,8 +190,8 @@ public String generarTextoReserva() {
 	texto+= getSedeEntrega()+"+";
 	texto+= getSedeDevuelta()+"+";
 	texto+= getFechaInicio()+"+";
-	//texto+= cliente.generarTexto()+"+";
-	//texto+= carroEnReserva.generarTexto();
+	texto+= cliente.generarTexto()+"+";
+	texto+= carroEnReserva.generarTexto();
 	
 	return texto;
 }

@@ -1,4 +1,4 @@
-package partesProyecto1;
+package modelo;
 
 public class Sede {
 

@@ -15,10 +15,29 @@ public class Cliente extends usuario{
 		this.correo = mail;
 		this.celular = cel;
 	}
-	public generarTexto() {
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public String getCorreo() {
+		return correo;
+	}
+	
+	public int getCelular() {
+		return celular;
+	}
+	
+	public String generarTexto() {
+		String texto= "";
 		texto+= getNombre()+":";
 		texto+= getCorreo()+":";
+<<<<<<< HEAD
 		texto+= getCel();
+=======
+		texto+= getCelular();
+		return texto;
+	
+>>>>>>> refs/remotes/origin/main
 }
 	public void reservar_carro(String tiempoReservap,float precio30p,ArrayList<Conductor>  conductorp,
 	           String medioDePagop,Seguro segurop, String sedeEntregap,Date fechaIniciop, List<InfoReserva> list) {

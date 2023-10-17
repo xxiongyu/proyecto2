@@ -15,6 +15,8 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 
+import modelo.Carro;
+import modelo.Cliente;
 import modelo.Conductor;
 import modelo.Documento;
 import modelo.InfoReserva;
@@ -35,15 +37,19 @@ public class SistemaDeReservas {
 	private ArrayList<Conductor>  conductor=new ArrayList<Conductor>(); 
 	private String medioDePago="tarjeta";
 	private Seguro seguro = new Seguro("", "", fechaInicio, fechaInicio, ""); 
+	private Cliente cliente= new Cliente(tiempoReserva, sedeEntrega, sedeDevuelta, medioDePago, temporada);
+	private Carro carroEnReserva = new Carro(medioDePago, medioDePago, medioDePago, medioDePago, medioDePago, tiempoReserva, sedeEntrega, temporada, sedeDevuelta, medioDePago);
 	
-	private InfoReserva reservaEnCurso = new InfoReserva(tiempoReserva, precio30, conductor, medioDePago, seguro, sedeEntrega,fechaInicio);
+	private InfoReserva reservaEnCurso = new InfoReserva( tiempoReserva, precio30, conductor,
+	            medioDePago, seguro,  sedeEntrega, fechaInicio, cliente, carroEnReserva);
 	
 
 //agregar cliente 
 //agregar como parametro de entrada el atributo carroEnReserva
 public void iniciarReserva(String tiempoReserva,float precio30,ArrayList<Conductor>  conductor,
 		                   String medioDePago,Seguro seguro, String sedeEntrega) {
-	reservaEnCurso= new InfoReserva(tiempoReserva,precio30, conductor,medioDePago, seguro,sedeEntrega,fechaInicio);
+	reservaEnCurso= new InfoReserva( tiempoReserva, precio30, conductor,
+            medioDePago, seguro,  sedeEntrega, fechaInicio, cliente, carroEnReserva);
 }
 	
 	 
@@ -58,41 +64,41 @@ public void crearReserva() throws IOException, FileNotFoundException{
 	
 }
 
-public void cargarLicencia() {
-	String ruta = input("Ingrese la ruta de la imagen(ej->C:\\Users\\arfie\\Downloads\\licencia.jpeg)");
-	try {
-		BufferedImage imagenLicencia = null;
-		imagenLicencia = ImageIO.read(new File(ruta));
-		System.out.println("Se ha leido");
-		licencia = new Licencia(123, "Col", fechaInicio, imagenLicencia);
-		ImageIO.write(imagenLicencia, "png", new File("data/licencia.png"));
-		System.out.println("Se creo la licencia");
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-}
-
-public void cargarImagen(String tipoDoc,String numDoc) {
-	String ruta = input("Ingrese la ruta de la imagen(ej->C:\\Users\\arfie\\Downloads\\licencia.jpeg)");
-	try {
-		if (tipoDoc == "documento") {
-			BufferedImage imagenDocumento = null;
-			imagenDocumento = ImageIO.read(new File(ruta));
-			System.out.println("Se ha leido");
-			documento= new Documento(imagenDocumento,numDoc);
-			ImageIO.write(imagenDocumento, "png", new File("data/Documento"+numDoc+".png"));
-		}else { 
-			BufferedImage imagenLicencia = null;
-			imagenLicencia = ImageIO.read(new File(ruta));
-			System.out.println("Se ha leido");
-			licencia = new Licencia(123, "Col", fechaInicio, imagenLicencia);
-			ImageIO.write(imagenLicencia, "png", new File("data/licencia"+numDoc+".png"));
-			System.out.println("Se creo la licencia");
-		}
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-}
+//public void cargarLicencia() {
+//	String ruta = input("Ingrese la ruta de la imagen(ej->C:\\Users\\arfie\\Downloads\\licencia.jpeg)");
+//	try {
+//		BufferedImage imagenLicencia = null;
+//		imagenLicencia = ImageIO.read(new File(ruta));
+//		System.out.println("Se ha leido");
+//		licencia = new Licencia(123, "Col", fechaInicio, imagenLicencia);
+//		ImageIO.write(imagenLicencia, "png", new File("data/licencia.png"));
+//		System.out.println("Se creo la licencia");
+//	} catch (IOException e) {
+//		e.printStackTrace();
+//	}
+//}
+//
+//public void cargarImagen(String tipoDoc,String numDoc) {
+//	String ruta = input("Ingrese la ruta de la imagen(ej->C:\\Users\\arfie\\Downloads\\licencia.jpeg)");
+//	try {
+//		if (tipoDoc == "documento") {
+//			BufferedImage imagenDocumento = null;
+//			imagenDocumento = ImageIO.read(new File(ruta));
+//			System.out.println("Se ha leido");
+//			documento= new Documento(imagenDocumento,numDoc);
+//			ImageIO.write(imagenDocumento, "png", new File("data/Documento"+numDoc+".png"));
+//		}else { 
+//			BufferedImage imagenLicencia = null;
+//			imagenLicencia = ImageIO.read(new File(ruta));
+//			System.out.println("Se ha leido");
+//			licencia = new Licencia(123, "Col", fechaInicio, imagenLicencia);
+//			ImageIO.write(imagenLicencia, "png", new File("data/licencia"+numDoc+".png"));
+//			System.out.println("Se creo la licencia");
+//		}
+//	} catch (IOException e) {
+//		e.printStackTrace();
+//	}
+//}
 
 
 
@@ -118,7 +124,7 @@ public static void main(String[] args) throws FileNotFoundException, IOException
 	String hello = "°o°";
 	System.out.println(hello);
 	//Pedir numDocumento y pedir numLic
-	sistemaDeReservas.cargarImagen("lic","123");
+//	sistemaDeReservas.cargarImagen("lic","123");
 }
 
 //public void guardaReserva(archivo)throws IOException, FileNotFoundException{

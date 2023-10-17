@@ -1,4 +1,4 @@
-package partesProyecto1;
+package modelo;
 
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
