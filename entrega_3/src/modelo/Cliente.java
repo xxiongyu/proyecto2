@@ -25,8 +25,8 @@ public class Cliente extends usuario{
 	
 	public String generarTexto() {
 		String texto= "";
-		texto+= getNombre()+":";
-		texto+= getCorreo()+":";
+		texto+= getNombre()+">";
+		texto+= getCorreo()+">";
 		texto+= getCelular();
 		return texto;
 	

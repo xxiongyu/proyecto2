@@ -115,13 +115,13 @@ public class Carro {
     
     public String generarTexto() {
     	String texto="";
-    	texto+= getPlaca()+":";
-    	texto+= getMarca()+":";
-    	texto+= getModelo()+":";
-    	texto+= getColor()+":";
-    	texto+= getTransmision()+":";
-    	texto+= getEstado()+":";
-    	texto+= getUbicacion()+":";
+    	texto+= getPlaca()+"p0";
+    	texto+= getMarca()+"p0";
+    	texto+= getModelo()+"p0";
+    	texto+= getColor()+"p0";
+    	texto+= getTransmision()+"p0";
+    	texto+= getEstado()+"p0";
+    	texto+= getUbicacion()+"p0";
     	texto+= getCategoria();
     	return texto;
     }

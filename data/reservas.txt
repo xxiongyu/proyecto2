@@ -21,3 +21,6 @@
 0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:48:02 COT 2023+
 0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:48:19 COT 2023+
 0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:48:42 COT 2023+
+0+2 dias+0.04+0.0+tarjeta+::Mon Oct 16 21:53:20 COT 2023:Mon Oct 16 21:53:20 COT 2023:+null+principal+null+Mon Oct 16 21:53:20 COT 2023+
+0+2 dias+0.04+0.0+tarjeta+::Mon Oct 16 21:53:42 COT 2023:Mon Oct 16 21:53:42 COT 2023:+null+principal+null+Mon Oct 16 21:53:42 COT 2023+
+0+2 dias+0.04+0.0+tarjeta+''Mon Oct 16 22:20:31 COT 2023'Mon Oct 16 22:20:31 COT 2023'+null+principal+null+Mon Oct 16 22:20:31 COT 2023+principal>tarjeta>2+tarjetap0tarjetap0tarjetap0tarjetap0tarjetap02 diasp02p0principal

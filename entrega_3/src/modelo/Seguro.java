@@ -60,10 +60,10 @@ public void setVencimiento(Date vencimiento) {
 
 public String generarTexto() {
 	String texto="";
-	texto+=getPoliza()+":";
-	texto+= getCobertura()+":";
-	texto+=getInicio()+":";
-	texto+=getVencimiento()+":";
+	texto+=getPoliza()+"'";
+	texto+= getCobertura()+"'";
+	texto+=getInicio()+"'";
+	texto+=getVencimiento()+"'";
 	texto+= getCompania();
 	return texto;
 }
