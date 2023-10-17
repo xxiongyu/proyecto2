@@ -1,4 +1,4 @@
-package partesProyecto1;
+package modelo;
 
 import java.util.Date;
 import java.awt.image.BufferedImage;
@@ -52,5 +52,14 @@ public class Licencia {
 
     public void setImagen(String pathImagen) throws IOException {
         this.imagen = ImageIO.read(new File(pathImagen));
+    }
+    public String generarTexto() {
+    	String texto="";
+    	texto+= getNumero()+":";
+    	texto+= getPais()+":";
+    	texto+=getFechaVencimiento();
+
+    	return texto;
+
     }
 }

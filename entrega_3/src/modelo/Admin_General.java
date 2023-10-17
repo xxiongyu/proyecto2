@@ -1,7 +1,7 @@
 package modelo;
 import java.util.List;
 
-import modelo.carro;
+import modelo.Carro;
 
 public class Admin_General extends usuario{
 	;
@@ -22,7 +22,7 @@ public class Admin_General extends usuario{
 	public void carro_fuera(String placa, List<Car> lista) {
 		int a = 0;
 		Car instancias = lista.get(a);
-		String placa_instancia = instancias.getPlaca()
+		String placa_instancia = instancias.getPlaca();
 		if(placa != placa_instancia) {
 			a += 1;
 			carro_fuera(placa,lista);

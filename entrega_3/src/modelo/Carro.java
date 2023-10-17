@@ -1,4 +1,4 @@
-package partesProyecto1;
+package modelo;
 
 public class Carro {
 
@@ -113,7 +113,8 @@ public class Carro {
         this.disponibilidad = disponibilidad;
     }
     
-    public generarTexto() {
+    public String generarTexto() {
+    	String texto="";
     	texto+= getPlaca()+":";
     	texto+= getMarca()+":";
     	texto+= getModelo()+":";
@@ -121,9 +122,8 @@ public class Carro {
     	texto+= getTransmision()+":";
     	texto+= getEstado()+":";
     	texto+= getUbicacion()+":";
-    	texto+= getCapacidad()+":";
     	texto+= getCategoria();
-    	
+    	return texto;
     }
     public String paCuando(String listopara) {
         if ("Disponible".equals(listopara) || "No Disponible".equals(listopara)) {
@@ -134,7 +134,8 @@ public class Carro {
     }
 
     public String Informe() {
-        return "Informe del Carro:" +
+        String listopara=null;
+		return "Informe del Carro:" +
                "\nPlaca: " + placa +
                "\nMarca: " + marca +
                "\nModelo: " + modelo +
