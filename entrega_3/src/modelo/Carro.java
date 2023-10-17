@@ -1,5 +1,9 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 public class Carro {
 
     private String placa;
@@ -12,10 +16,11 @@ public class Carro {
     private int ubicacion;
     private String alquilado;
     private String disponibilidad;
+    private static ArrayList<String> historialInformes = new ArrayList<>();
 
     // Constructor para inicializar todos los atributos
     public Carro(String placa, String marca, String modelo, String color, String transmision,
-                 String estado, String categoria, int ubicacion, String Alquilado,String Disponibilidad) {
+                 String estado, String categoria, int ubicacion, String alquilado,String disponibilidad) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
@@ -70,12 +75,12 @@ public class Carro {
         this.transmision = transmision;
     }
 
-    // Getter y Setter para Estado
+    // Getter para Estado
     public String getEstado() {
         return estado;
     }
 
-    // Método para cambiar el estado (este método hace lo mismo que setEstado
+    // Método para cambiar el estado (este método hace lo mismo que setEstado)
     public void cambiarEstado(String nuevoEstado) {
         this.estado = nuevoEstado;
     }
@@ -113,6 +118,7 @@ public class Carro {
         this.disponibilidad = disponibilidad;
     }
     
+
     public String generarTexto() {
     	String texto="";
     	texto+= getPlaca()+"p0";
@@ -122,7 +128,6 @@ public class Carro {
     	texto+= getTransmision()+"p0";
     	texto+= getEstado()+"p0";
     	texto+= getUbicacion()+"p0";
-    	texto+= getCategoria();
     	return texto;
     }
     public String paCuando(String listopara) {
@@ -132,20 +137,38 @@ public class Carro {
             return "a partir de " + listopara;
         }
     }
-
-    public String Informe() {
+    public String informe() {
         String listopara=null;
-		return "Informe del Carro:" +
-               "\nPlaca: " + placa +
-               "\nMarca: " + marca +
-               "\nModelo: " + modelo +
-               "\nColor: " + color +
-               "\nTransmisión: " + transmision +
-               "\nEstado: " + estado +
-               "\nCategoría: " + categoria +
-               "\nUbicación : " + ubicacion+
-               "\nEsta alquilado a:"+getAlquilado()+
-               "\nEsta disponible:"+paCuando(listopara);
+		String informeActual = "Informe del Carro:" +
+            "\nPlaca: " + placa +
+            "\nMarca: " + marca +
+            "\nModelo: " + modelo +
+            "\nColor: " + color +
+            "\nTransmisión: " + transmision +
+            "\nEstado: " + estado +
+            "\nCategoría: " + categoria +
+            "\nUbicación : " + ubicacion+
+            "\nEsta alquilado a:"+getAlquilado()+
+            "\nEsta disponible:"+paCuando(listopara);
+
+        historialInformes.add(informeActual);
+
+        return informeActual;
     }
+
+    public static void guardarHistorialEnArchivo(String nombreArchivo) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo));
+            for (String informe : historialInformes) {
+                writer.write(informe);
+                writer.newLine(); 
+                writer.newLine(); // Dos líneas nuevas para separar cada informe
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

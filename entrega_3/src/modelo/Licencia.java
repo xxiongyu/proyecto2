@@ -57,9 +57,14 @@ public class Licencia {
     	String texto="";
     	texto+= getNumero()+":";
     	texto+= getPais()+":";
-    	texto+=getFechaVencimiento();
+    	texto+=generarTextoFecha(getFechaVencimiento());
 
     	return texto;
 
+    }
+    public String generarTextoFecha(Date fecha) {
+    	String texto = "";
+    	texto += fecha.getYear() + "." + fecha.getMonth() + "." + fecha.getDate() + "." + fecha.getHours() + "." + fecha.getMinutes() + "." + fecha.getSeconds();
+    	return texto;
     }
 }

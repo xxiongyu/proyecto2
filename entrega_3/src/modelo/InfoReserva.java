@@ -195,7 +195,12 @@ public String generarTextoReserva() {
 	
 	return texto;
 }
-    
+public String generarTextoFecha(Date fecha) {
+	String texto = "";
+	texto += fecha.getYear() + "." + fecha.getMonth() + "." + fecha.getDate() + "." + fecha.getHours() + "." + fecha.getMinutes() + "." + fecha.getSeconds();
+	return texto;
+}
+
 public void guardarReserva(File archivo, boolean seCreo)throws IOException, FileNotFoundException{
 	String texto = "";
 	if (seCreo==false) {
