@@ -15,5 +15,9 @@ public Licencia obtenerLicencia() {
 	return datoslicencia;
 }
 
+public String generarTexto() {
+	return datoslicencia.generarTexto();
+}
+
 	
 }

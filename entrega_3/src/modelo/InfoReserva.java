@@ -4,14 +4,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-
+import modelo.Conductor;
 //import uniandes.dpoo.taller0.modelo.ProductoMenu;
 
-public class infoReserva {
+public class InfoReserva {
 	
 	private int id;
 	private String tiempoReserva;
@@ -22,18 +24,17 @@ public class infoReserva {
 	private ArrayList<Conductor>  conductor; 
 	private String medioDePago;
 	private Seguro seguro; 
-	private int temporada; 
+	private String temporada; 
 	private String sedeEntrega;
 	private String sedeDevuelta;
 	private Boolean enCurso; 
 	private Date fechaInicio;
 	
 	
-	
 	//agregar cliente 
 	//agregar como parametro de entrada el atributo carroEnReserva
-	public infoReserva(String tiempoReservap,float precio30p,ArrayList<Conductor>  conductorp,
-			           String medioDePagop,Seguro segurop, String sedeEntregap)
+	public InfoReserva(String tiempoReservap,float precio30p,ArrayList<Conductor>  conductorp,
+			           String medioDePagop,Seguro segurop, String sedeEntregap,Date fechaIniciop)
 	
 	{
 		//cliente=clientep;
@@ -44,6 +45,8 @@ public class infoReserva {
 		medioDePago=medioDePagop;
 		seguro=segurop;
 		sedeEntrega=sedeEntregap;
+		fechaInicio=fechaIniciop;
+		enCurso= false;
 	}
 	
 	
@@ -115,11 +118,11 @@ public void setSeguro(Seguro seguro) {
 	this.seguro = seguro;
 }
 
-public int getTemporada() {
+public String getTemporada() {
 	return temporada;
 }
 
-public void setTemporada(int temporada) {
+public void setTemporada(String temporada) {
 	this.temporada = temporada;
 }
 
@@ -147,6 +150,14 @@ public void setEnCurso(Boolean enCurso) {
 	this.enCurso = enCurso;
 }
 
+public Date getFechaInicio() {
+	return fechaInicio;
+}
+
+public void setFechaInicio(Date fechaInicio) {
+	this.fechaInicio = fechaInicio;
+}
+
 public void agregarConductor(Conductor conductorNuevo) {
 	conductor.add(conductorNuevo);
 }
@@ -159,6 +170,59 @@ public void compararFecha(Date fecha) {
 		//carroEnReserva.nuevoAlquiler();
 	}
 }
+
+
+public String generarTextoReserva() {
+	String texto="";
+	texto+= getId()+"+";
+	texto+= getTiempoReserva()+"+";
+	texto+=  getPrecio30()+"+";
+	texto+= getPrecioServicioCompleto()+"+";
+	for (int i = 0 ;i < conductor.size(); i++) {
+		texto+=conductor.get(i).generarTexto()+ ",";
+	}
+	texto= texto.substring(0,texto.length()-1) ;
+	texto+="+";
+	texto+= getMedioDePago()+"+";
+	texto+= seguro.generarTexto()+"+";
+	texto+=getTemporada()+"+";
+	texto+= getSedeEntrega()+"+";
+	texto+= getSedeDevuelta()+"+";
+	texto+= getFechaInicio()+"+";
+	//texto+= cliente.generarTexto()+"+";
+	//texto+= carroEnReserva.generarTexto();
+	
+	return texto;
+}
+    
+public void guardarReserva(File archivo, boolean seCreo)throws IOException, FileNotFoundException{
+	String texto = "";
+	if (seCreo==false) {
+		BufferedReader docReserva = new BufferedReader(new FileReader(archivo));
+		String linea=docReserva.readLine();
+		while (linea != null) {
+			texto += linea + ";";
+			linea = docReserva.readLine();
+		}
+		docReserva.close();
+		texto += generarTextoReserva();
+		String[] lineas = texto.split(";");
+		BufferedWriter reservaDoc = new BufferedWriter(new FileWriter(archivo));
+		for (int i = 0 ;i < lineas.length; i++) {
+			reservaDoc.write(lineas[i]);
+			reservaDoc.newLine();
+		}
+		reservaDoc.close();
+	} else {
+		BufferedWriter reservaDoc = new BufferedWriter(new FileWriter(archivo));
+		texto += generarTextoReserva();
+		reservaDoc.write(texto);
+		reservaDoc.close();
+	}
+} 
+    
+
+    
 
 
 //public void cancelarReserva()
