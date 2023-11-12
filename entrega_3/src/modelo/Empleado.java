@@ -10,10 +10,12 @@ public class Empleado extends usuario{
 
 	}
 	
-	public void estado_carro(String placa,String estado, List<Car> lista) {
+	
+	
+	public void estado_carro(String placa,String estado, List<Carro> lista) {
 		int a = 0;
-		Car instancias = lista.get(a);
-		String estado_instancia = instancias.getEstado()
+		Carro instancias = lista.get(a);
+		String estado_instancia = instancias.getEstado();
 		if(placa != estado_instancia) {
 			a += 1;
 			estado_carro(placa,lista);

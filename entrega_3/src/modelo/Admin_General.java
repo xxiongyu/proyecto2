@@ -1,7 +1,10 @@
 package modelo;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
 import modelo.Carro;
+>>>>>>> refs/remotes/origin/main
 
 public class Admin_General extends usuario{
 	;
@@ -12,16 +15,20 @@ public class Admin_General extends usuario{
 		
 	}
 	
-	public void nuevo_carro(String placa , String marca, String modelo, String color, String transmision,
-			String estado, String ubicacion, int capacidad, String categoria, List<Car> lista) {
+	public void nuevo_car(String placa, String marca, String modelo, String color, String transmision,
+            String estado, String categoria, int ubicacion, String Alquilado,String Disponibilidad, List<Carro> lista) {
 		
-		Car carro = new Car(placa,marca,modelo,color,transmision,estado,ubicacion,capacidad,categoria);
-		
-		lista.add(carro);
+		Carro car = new Carro(placa,marca, modelo, color,  transmision,
+                estado, categoria, ubicacion, Alquilado,Disponibilidad);
+		lista.add(car);
 	}
-	public void carro_fuera(String placa, List<Car> lista) {
+	public void carro_fuera(String placa, List<Carro> lista) {
 		int a = 0;
+<<<<<<< HEAD
+		Carro instancias = lista.get(a);
+=======
 		Car instancias = lista.get(a);
+>>>>>>> refs/remotes/origin/main
 		String placa_instancia = instancias.getPlaca();
 		if(placa != placa_instancia) {
 			a += 1;
