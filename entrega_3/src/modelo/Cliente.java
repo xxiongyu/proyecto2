@@ -1,11 +1,10 @@
 package modelo;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
+
 import java.util.Date;
 import java.util.List;
->>>>>>> branch 'main' of https://github.com/xxiongyu/entrega-3.git
+
 
 public class Cliente extends usuario{
 	private String nombre;
@@ -45,7 +44,6 @@ public class Cliente extends usuario{
 	
 	public String generarTexto() {
 		String texto= "";
-<<<<<<< HEAD
 		texto+= getLogin()+">";
 		texto+= getPassword()+">";
 		texto+= getNombre()+">";
@@ -56,22 +54,9 @@ public class Cliente extends usuario{
 		}
 		System.out.println(texto);
 		//texto+= getIdReserva();
-=======
 		texto+= getNombre()+":";
 		texto+= getCorreo()+":";
-<<<<<<< HEAD
-		texto+= getCel();
-=======
 		texto+= getCelular();
->>>>>>> branch 'main' of https://github.com/xxiongyu/entrega-3.git
 		return texto;
-	
->>>>>>> refs/remotes/origin/main
 }
-	public void reservar_carro(String tiempoReservap,float precio30p,ArrayList<Conductor>  conductorp,
-	           String medioDePagop,Seguro segurop, String sedeEntregap,Date fechaIniciop, List<InfoReserva> list) {
-		InfoReserva reserva = new InfoReserva(tiempoReservap, precio30p, conductorp, medioDePagop,segurop,  sedeEntregap,fechaIniciop);
-		lista.add(reserva);
-		
-	}
 }
