@@ -15,10 +15,10 @@ import modelo.Conductor;
 
 public class InfoReserva {
 	
-	private int id;
-	private String tiempoReserva;
+	private String id;
+	//private Date tiempoReserva;
 	private Cliente cliente;
-	private Carro carroEnReserva;
+	private String carroEnReserva;
 	private float precio30;
 	private float precioServicioCompleto;
 	private ArrayList<Conductor>  conductor; 
@@ -29,55 +29,69 @@ public class InfoReserva {
 	private String sedeDevuelta;
 	private Boolean enCurso; 
 	private Date fechaInicio;
+	private Date fechaEntrega;
 	
 	
-	//agregar cliente 
-	//agregar como parametro de entrada el atributo carroEnReserva
-	public InfoReserva(String tiempoReservap,float precio30p,ArrayList<Conductor>  conductorp,
-			           String medioDePagop,Seguro segurop, String sedeEntregap,Date fechaIniciop,Cliente clientep,Carro carroEnReservap)
+	public InfoReserva(String idp,float precio30p,float precioServicioCompletop,ArrayList<Conductor> coductorp,String medioDePagop,Seguro segurop, 
+			String Temporadap,String sedeEntregap,String sedeDeVueltap, Date fechaIniciop,Date fechaEntregap,Cliente clientep,String carroEnReservap)
 	
 	{
-		//cliente=clientep;
-		//carroEnReserva=carroEnReservap;
-		tiempoReserva= tiempoReservap;
-		precio30= precio30p;
-		conductor= conductorp;
-		medioDePago=medioDePagop;
-		seguro=segurop;
-		sedeEntrega=sedeEntregap;
-		fechaInicio=fechaIniciop;
-		enCurso= false;
+		id=idp;
 		cliente=clientep;
 		carroEnReserva=carroEnReservap;
+		cliente=clientep;
+		carroEnReserva=carroEnReservap;
+		precio30= precio30p;
+		precioServicioCompleto=precioServicioCompletop;
+		conductor= coductorp;
+		medioDePago=medioDePagop;
+		seguro=segurop;
+		temporada=Temporadap;
+		sedeEntrega=sedeEntregap;
+		sedeDevuelta=sedeDeVueltap;
+		enCurso= false;
+		fechaInicio=fechaIniciop;
+		fechaEntrega=fechaEntregap;
 		
 	}
 	
-	
-public String getCliente(){  
-	return cliente.getLogin();
+//Al dar click en reservar guardar la información 
+public String getNameCliente(){  
+	return cliente.getNombre();
 }
+
+public void setCliente(Cliente cliente) {
+	this.cliente = cliente;
+}
+
+
 
 public String getCarroEnReserva(){ 
-	return carroEnReserva.getPlaca();
+	return carroEnReserva;
 }
 
+public void setCarroEnReserva(String carroEnReserva){ 
+	this.carroEnReserva=carroEnReserva;
+}
+	
 
-	
-	
-public int getId(){ 
+public String getId(){ 
 	return id;
 }
-public void setId(int id) {
+public void setId(String id) {
 	this.id = id;
 }
 	
-public String getTiempoReserva(){
-	return tiempoReserva;
-}
-	
-public void setTiempoReserva(String tiempoReserva) {
-	this.tiempoReserva = tiempoReserva;
-}
+
+//public Date getTiempoReserva(){
+//	return tiempoReserva;
+//}
+//	
+//public void setTiempoReserva(Date fechaInicio,) {
+//	
+//	this.tiempoReserva = tiempoReserva;
+//}
+
 
 public float getPrecio30(){
 	return precio30;
@@ -86,6 +100,7 @@ public float getPrecio30(){
 public void setPrecio30(float precio30) {
 	this.precio30 = precio30;
 }
+
 
 public float getPrecioServicioCompleto() {
 	return precioServicioCompleto;
@@ -135,6 +150,7 @@ public void setSedeDevuelta(String sedeDevuelta) {
 	this.sedeDevuelta = sedeDevuelta;
 }
 
+
 public String getSedeEntrega() {
 	return sedeEntrega;
 }
@@ -143,13 +159,15 @@ public void setSedeEntrega(String sedeEntrega) {
 	this.sedeEntrega = sedeEntrega;
 }
 
+
 public Boolean getEnCurso() {
 	return enCurso;
 }
 
-public void setEnCurso(Boolean enCurso) {
-	this.enCurso = enCurso;
+public void setEnCurso() {
+	this.enCurso = true;
 }
+
 
 public Date getFechaInicio() {
 	return fechaInicio;
@@ -165,7 +183,7 @@ public void agregarConductor(Conductor conductorNuevo) {
 
 public void compararFecha(Date fecha) {
 	//private Date fecha = new Date();
-	//inforeserva.compararFecha(fecha);
+	//inforeserva.compararFecha(fecha); 
 	if (fechaInicio.compareTo(fecha)== 0) {
 		enCurso = true;
 		//carroEnReserva.nuevoAlquiler();
@@ -175,31 +193,40 @@ public void compararFecha(Date fecha) {
 
 public String generarTextoReserva() {
 	String texto="";
-	texto+= getId()+"+";
-	texto+= getTiempoReserva()+"+";
-	texto+=  getPrecio30()+"+";
-	texto+= getPrecioServicioCompleto()+"+";
+	texto+= getId()+"&";
+	//texto+= getTiempoReserva()+"+";
+	texto+=  getPrecio30()+"&";
+	texto+= getPrecioServicioCompleto()+"&";
 	for (int i = 0 ;i < conductor.size(); i++) {
-		texto+=conductor.get(i).generarTexto()+ ",";
+		texto+=conductor.get(i).generarTexto()+ ",";//4
 	}
-	texto= texto.substring(0,texto.length()-1) ;
-	texto+="+";
-	texto+= getMedioDePago()+"+";
-	texto+= seguro.generarTexto()+"+";
-	texto+=getTemporada()+"+";
-	texto+= getSedeEntrega()+"+";
-	texto+= getSedeDevuelta()+"+";
-	texto+= getFechaInicio()+"+";
-	texto+= cliente.generarTexto()+"+";
-	texto+= carroEnReserva.generarTexto();
-	
+	texto= texto.substring(0,texto.length()-1) ;//5
+	texto+="&";
+	texto+= getMedioDePago()+"&";//4
+	texto+= seguro.generarTexto()+"&";//5
+	texto+=getTemporada()+"&";//6
+	texto+= getSedeEntrega()+"&";//7
+	texto+= getSedeDevuelta()+"&";//8
+	texto+= generarTextoFechaI()+"&";//9
+	texto+=generarTextoFechaE()+"&";//10
+	texto+= cliente.generarTexto()+"&";//11
+	texto+= getCarroEnReserva();//12
 	return texto;
 }
-public String generarTextoFecha(Date fecha) {
+public String generarTextoFechaI() {
 	String texto = "";
-	texto += fecha.getYear() + "." + fecha.getMonth() + "." + fecha.getDate() + "." + fecha.getHours() + "." + fecha.getMinutes() + "." + fecha.getSeconds();
+	//int anio=fechaInicio.getYear()+1900;
+	texto += fechaInicio.getYear() + "." + fechaInicio.getMonth() + "." + fechaInicio.getDate() + "." + fechaInicio.getHours() + "." + fechaInicio.getMinutes() + "." + fechaInicio.getSeconds();
 	return texto;
 }
+
+public String generarTextoFechaE() {
+	String texto = "";
+//	int anio=fechaEntrega.getYear()+1900;
+	texto += fechaEntrega.getYear() + "." + fechaEntrega.getMonth() + "." + fechaEntrega.getDate() + "." + fechaEntrega.getHours() + "." + fechaEntrega.getMinutes() + "." + fechaEntrega.getSeconds();
+	return texto;
+}
+
 
 public void guardarReserva(File archivo, boolean seCreo)throws IOException, FileNotFoundException{
 	String texto = "";
@@ -225,79 +252,19 @@ public void guardarReserva(File archivo, boolean seCreo)throws IOException, File
 		reservaDoc.write(texto);
 		reservaDoc.close();
 	}
-} 
-    
-public void cargarReservas() throws FileNotFoundException, IOException {
-	FileReader fr = new FileReader("data/DatosReservas.txt");
-	BufferedReader br = new BufferedReader(fr);
-	String linea = br.readLine();
-	while (linea != null) {
-		System.out.println(linea);
-		String[] partes = linea.split("+");
-		int id = Integer.parseInt(partes[0]);
-		String tiempoReserva= partes[1];
-		float precio30= Float.parseFloat(partes[2]);
-		float precioServicioCompleto= Float.parseFloat(partes[3]);
-		ArrayList<Conductor> coductor = cargarConductores(partes[4]);
-		
-		
-		
-		String[] partesCliente = partes[1].split(",");
-		String[] partesFechaNaci = partesCliente[3].split("'");
-		Date fechaNaci = generarFecha(partesFechaNaci);
-		String[] partesLicencia = partesCliente[6].split("'");
-		String[] partesFechaVen = partesLicencia[2].split(".");
-		Date fechaVenLic = generarFecha(partesFechaVen);
-		Licencia licencia = new Licencia(partesLicencia[0], partesLicencia[1], fechaVenLic, partesLicencia[3]);
-		String[] partesMedioPago = partesCliente[7].split("'");
-		String[] partesFechaVenTar = partesMedioPago[2].split(".");
-		Date fechaVenTar = generarFecha(partesFechaVenTar);
-		MedioDePago medioPago = new MedioDePago(partesMedioPago[0], partesMedioPago[1], fechaVenTar, partesMedioPago[3]);
-		Cliente cliente = new Cliente(partesCliente[0], partesCliente[1], partesCliente[2], fechaNaci, partesCliente[4], partesCliente[5], licencia, medioPago);
-		Conductor conductor = new Conductor(licencia);
-		String[] partesCategoria = partes[3].split(",");
-		Categoria categoria = new Categoria(partesCategoria[0], Integer.parseInt(partesCategoria[1]), Integer.parseInt(partesCategoria[2]));
-		String[] partesSeguro = partes[4].split(",");
-		String[] partesFechaIniSegu = partesSeguro[2].split(".");
-		String[] partesFechaVenSegu = partesSeguro[3].split(".");
-		Date fechaIniSegu = generarFecha(partesFechaIniSegu);
-		Date fechaVenSegu = generarFecha(partesFechaVenSegu);
-		Seguro seguro = new Seguro(partesSeguro[0], partesSeguro[1], fechaIniSegu, fechaVenSegu, partesSeguro[4]);
-		String[] partesFechaIni = partes[6].split(".");
-		Date fechaIni = generarFecha(partesFechaIni);
-		Reserva reserva = new Reserva(id, cliente, conductor, categoria, seguro, medioPago, fechaIni);
-		reservas.add(reserva);
-		linea = br.readLine();
-	}
-	br.close();
 }
 
-public ArrayList<Conductor> cargarConductores(String conductores) throws IOException{
-	ArrayList<Conductor> finalArray= null;
-	String[] porConductor= conductores.split(",");
-	for (int i = 0 ;i < porConductor.length; i++) {
-		String[] partes= porConductor[i].split(":");
-		
-		finalArray.add(new Conductor(new Licencia(Integer.parseInt(partes[0]), partes[1], partes[2], null)));
-		
-		
-	}
-	
-	
-	
-	return null;
-}
 
-private Date generarFecha(String[] partesFecha){
-	int ano = Integer.parseInt(partesFecha[0]);
-	int mes = Integer.parseInt(partesFecha[1]);
-	int dia = Integer.parseInt(partesFecha[2]);
-	int hora = Integer.parseInt(partesFecha[3]);
-	int minuto = Integer.parseInt(partesFecha[4]);
-	int segundo = Integer.parseInt(partesFecha[5]);
-	Date fecha = new Date(ano, mes, dia, hora, minuto, segundo);
-	return fecha;
-}
+//public ArrayList<Conductor> cargarConductores(String conductores) throws IOException{
+//	ArrayList<Conductor> finalArray= new ArrayList<Conductor>();
+//	String[] porConductor= conductores.split(",");
+//	for (int i = 0 ;i < porConductor.length;) {
+//		String[] partes= porConductor[i].split(":");
+//		String[] parteFecha = partes[2].split(".");
+//		finalArray.add(new Conductor(new Licencia(Integer.parseInt(partes[0]), partes[1], generarFecha(parteFecha), null)));
+//	}
+//	return finalArray;
+//}
 
     
 

@@ -1,26 +1,5 @@
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@ea4a92b+principal+Mon Oct 16 15:56:17 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1b40d5f0+principal+Mon Oct 16 15:57:19 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 15:58:00 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 16:02:24 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 16:02:36 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:10:35 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:10:39 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:10:46 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:10:49 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:12:31 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:14:45 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:16:22 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:18:08 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:18:49 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:20:29 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:20:40 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:23:37 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:24:32 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:46:46 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:47:37 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:48:02 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:48:19 COT 2023+
-0+2 dias+tarjeta0.04+[]+modelo.Seguro@1d81eb93+principal+Mon Oct 16 17:48:42 COT 2023+
-0+2 dias+0.04+0.0+tarjeta+::Mon Oct 16 21:53:20 COT 2023:Mon Oct 16 21:53:20 COT 2023:+null+principal+null+Mon Oct 16 21:53:20 COT 2023+
-0+2 dias+0.04+0.0+tarjeta+::Mon Oct 16 21:53:42 COT 2023:Mon Oct 16 21:53:42 COT 2023:+null+principal+null+Mon Oct 16 21:53:42 COT 2023+
-0+2 dias+0.04+0.0+tarjeta+''Mon Oct 16 22:20:31 COT 2023'Mon Oct 16 22:20:31 COT 2023'+null+principal+null+Mon Oct 16 22:20:31 COT 2023+principal>tarjeta>2+tarjetap0tarjetap0tarjetap0tarjetap0tarjetap02 diasp02p0principal
+2&4.5&4.6&10777222:Colombia:2023.10.11.23.20.48&tarjeta&poliza'todo'2023.10.11.23.20.48'2023.10.11.23.20.48'compania&alta&¨Principal&secundaria&123.10.11.23.20.48&123.10.11.23.20.48&j.fajardo>3456>Jairo Fierro>ja.fierro@uniandes.edu.co>320555>01<33<&XZY
+2&4.5&4.6&10777222:Colombia:2023.10.11.23.21.5&tarjeta&poliza'todo'2023.10.11.23.21.5'2023.10.11.23.21.5'compania&alta&¨Principal&secundaria&123.10.11.23.21.5&123.10.11.23.21.5&j.fajardo>3456>Jairo Fierro>ja.fierro@uniandes.edu.co>320555>01<33<&XZY
+2&4.5&4.6&10777222:Colombia:2023.10.11.23.22.5&tarjeta&poliza'todo'2023.10.11.23.22.5'2023.10.11.23.22.5'compania&alta&¨Principal&secundaria&123.10.11.23.22.5&123.10.11.23.22.5&ja.fierro>3456>Jairo Fierro>ja.fierro@uniandes.edu.co>320555>01<33<&XZY
+3&4.5&4.6&10777222:Colombia:2023.10.11.23.22.21&tarjeta&poliza'todo'2023.10.11.23.22.21'2023.10.11.23.22.21'compania&alta&¨Principal&secundaria&123.10.11.23.22.21&123.10.11.23.22.21&ja.fierro>3456>Jairo Fierro>ja.fierro@uniandes.edu.co>320555>01<33<&XZY
+3&4.5&4.6&10777222:Colombia:2023.10.11.23.22.55&tarjeta&poliza'todo'2023.10.11.23.22.55'2023.10.11.23.22.55'compania&alta&¨Principal&secundaria&123.10.11.23.22.55&123.10.11.23.22.55&ja.fierro>3456>Jairo Fierro>ja.fierro@uniandes.edu.co>320555>01<33<&XZY

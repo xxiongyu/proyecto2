@@ -58,12 +58,28 @@ public void setVencimiento(Date vencimiento) {
 	this.vencimiento = vencimiento;
 }
 
+public String generarTextoFechaInicio() {
+	String texto = "";
+//	int anio=inicio.getYear()+1900;
+	texto += inicio.getYear() + "." + inicio.getMonth() + "." + inicio.getDate() + "." + inicio.getHours() + "." + inicio.getMinutes() + "." + inicio.getSeconds();
+	return texto;
+}
+
+public String generarTextoVencimiento() {
+	String texto = "";
+	//int anio=vencimiento.getYear()+1900;
+	//String.valueOf(anio)
+	texto += vencimiento.getYear() + "." + vencimiento.getMonth() + "." + vencimiento.getDate() + "." + vencimiento.getHours() + "." + vencimiento.getMinutes() + "." + vencimiento.getSeconds();
+	return texto;
+}
+
+
 public String generarTexto() {
 	String texto="";
 	texto+=getPoliza()+"'";
 	texto+= getCobertura()+"'";
-	texto+=getInicio()+"'";
-	texto+=getVencimiento()+"'";
+	texto+=generarTextoFechaInicio()+"'";
+	texto+=generarTextoVencimiento()+"'";
 	texto+= getCompania();
 	return texto;
 }

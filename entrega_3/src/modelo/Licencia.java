@@ -8,25 +8,25 @@ import java.io.IOException;
 
 public class Licencia {
 
-    private int numero;
+    private String numero;
     private String pais;
     private Date fechaVencimiento;
     private BufferedImage imagen;
 
     // Constructor
-    public Licencia(int numero, String pais, Date fechaVencimiento, String pathImagen) throws IOException {
+    public Licencia(String numero, String pais, Date fechaVencimiento, String pathImagen) throws IOException {
         this.numero = numero;
         this.pais = pais;
         this.fechaVencimiento = fechaVencimiento;
-        this.imagen = ImageIO.read(new File("D://Escritorio//banvelkozpls.png"));
+        //this.imagen = ImageIO.read(new File("D://Escritorio//banvelkozpls.png"));
     }
 
     // Getters y setters
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -64,7 +64,8 @@ public class Licencia {
     }
     public String generarTextoFecha(Date fecha) {
     	String texto = "";
-    	texto += fecha.getYear() + "." + fecha.getMonth() + "." + fecha.getDate() + "." + fecha.getHours() + "." + fecha.getMinutes() + "." + fecha.getSeconds();
+    	//int anio=fechaVencimiento.getYear()+1900;
+    	texto += fechaVencimiento.getYear() + "." + fechaVencimiento.getMonth() + "." + fechaVencimiento.getDate() + "." + fechaVencimiento.getHours() + "." + fechaVencimiento.getMinutes() + "." + fechaVencimiento.getSeconds();
     	return texto;
     }
 }

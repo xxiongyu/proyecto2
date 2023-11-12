@@ -13,14 +13,14 @@ public class Carro {
     private String transmision;
     private String estado;
     private String categoria;
-    private int ubicacion;
-    private String alquilado;
+    private String ubicacion;
+    private boolean alquilado;
     private String disponibilidad;
     private static ArrayList<String> historialInformes = new ArrayList<>();
 
     // Constructor para inicializar todos los atributos
     public Carro(String placa, String marca, String modelo, String color, String transmision,
-                 String estado, String categoria, int ubicacion, String alquilado,String disponibilidad) {
+                 String estado, String categoria, String ubicacion, boolean alquilado,String disponibilidad) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
@@ -95,18 +95,18 @@ public class Carro {
     }
 
  
-    public int getUbicacion() {
+    public String getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(int ubicacion) {
+    public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-    public String getAlquilado() {
-        return (alquilado != null && !alquilado.isEmpty()) ? alquilado : "No está alquilado";
+    public boolean getAlquilado() {
+        return alquilado;
     }
 
-    public void setAlquilado(String alquilado) {
+    public void setAlquilado(boolean alquilado) {
         this.alquilado = alquilado;
     }
 
@@ -127,7 +127,10 @@ public class Carro {
     	texto+= getColor()+"p0";
     	texto+= getTransmision()+"p0";
     	texto+= getEstado()+"p0";
+    	texto+= getCategoria()+"p0";
     	texto+= getUbicacion()+"p0";
+    	texto+= getAlquilado()+"p0";
+    	texto+= getDisponibilidad()+"p0";
     	return texto;
     }
     public String paCuando(String listopara) {

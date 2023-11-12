@@ -3,6 +3,7 @@ package modelo;
 import java.util.List;
 
 public class Empleado extends usuario{
+	private Sede sede;
 
 	public Empleado(String log, String pword) {
 		super(log, pword);
