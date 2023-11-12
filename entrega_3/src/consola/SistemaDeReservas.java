@@ -173,6 +173,16 @@ public void crearReserva() throws IOException, FileNotFoundException{
 	
 }
 
+
+public void crearSeguro()throws IOException, FileNotFoundException{
+	File archivoSeguro = new File("data/Seguros.txt");
+    boolean seCreo= false;
+    if (!archivoSeguro.exists()) {
+    	archivoSeguro.createNewFile();
+    	seCreo=true;
+    }
+}
+
 //public void cargarLicencia() {
 //	String ruta = input("Ingrese la ruta de la imagen(ej->C:\\Users\\arfie\\Downloads\\licencia.jpeg)");
 //	try {
@@ -235,8 +245,8 @@ public static void main(String[] args) throws FileNotFoundException, IOException
 //	Interfazlog log= new Interfazlog();
 //	log.setLocationRelativeTo(null);
 //	log.setVisible(true);	
-	//SistemaDeReservas sistemaDeReservas= new SistemaDeReservas();
-	//sistemaDeReservas.crearReserva();
+	SistemaDeReservas sistemaDeReservas= new SistemaDeReservas();
+	sistemaDeReservas.crearReserva();
 //	String hello = "1";
 	//sistemaDeReservas.cargarReservas();
 	//sistemaDeReservas.enseñarReserva();

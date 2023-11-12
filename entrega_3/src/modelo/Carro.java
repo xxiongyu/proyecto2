@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 public class Carro {
 
     private String placa;
@@ -16,11 +17,12 @@ public class Carro {
     private String ubicacion;
     private boolean alquilado;
     private String disponibilidad;
+    private BigDecimal precio;
     private static ArrayList<String> historialInformes = new ArrayList<>();
 
     // Constructor para inicializar todos los atributos
     public Carro(String placa, String marca, String modelo, String color, String transmision,
-                 String estado, String categoria, String ubicacion, boolean alquilado,String disponibilidad) {
+                 String estado, String categoria, String ubicacion, boolean alquilado,String disponibilidad,BigDecimal precio) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
@@ -31,9 +33,18 @@ public class Carro {
         this.ubicacion = ubicacion;
         this.alquilado=alquilado;
         this.disponibilidad=disponibilidad;
+        this.precio=precio;
     }
 
     // Getters y Setters 
+    public BigDecimal getPrecio() {
+		return precio;
+	}
+    
+    public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
+	}
+    
     public String getPlaca() {
         return placa;
     }
@@ -131,6 +142,7 @@ public class Carro {
     	texto+= getUbicacion()+"p0";
     	texto+= getAlquilado()+"p0";
     	texto+= getDisponibilidad()+"p0";
+    	texto+=getPrecio().toString();
     	return texto;
     }
     public String paCuando(String listopara) {
