@@ -1,2 +1,5 @@
-todo'123.10.12.15.13.22'123.10.12.15.13.22'TuSeguro
-daños menores al 30% del valor del carro'123.10.12.15.16.43'123.10.12.15.16.43'Seguros
+cubre 30% '50000'daños menores al 30% del valor del carro'Seguros
+cubre 50%'70000'daños menores al 30% del valor del carro'Seguros
+cubre 60%'60000'Solo para carros gama baja'Segura
+Cubre 30%'100000'Solo para camionetas'TuSeguro
+cubre 40%'70000'Solo para carros gama baja'Movi

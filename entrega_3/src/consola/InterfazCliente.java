@@ -9,6 +9,7 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import modelo.Carro;
 import modelo.Conductor;
 import modelo.InfoReserva;
 import modelo.Licencia;
@@ -44,6 +46,7 @@ public class InterfazCliente extends JFrame {
 	private JPanel panelReserNorth;
 	private JPanel panelReserSouth;
 	private JPanel panelReserEste;
+	private JPanel panelInfovehiculo;
 	private JComboBox<String> carros ;
 	private JComboBox<String> seguros;
 	private JList<String> reservas;
@@ -53,6 +56,7 @@ public class InterfazCliente extends JFrame {
 	private String carroSeleccionado=null;
 	private String seguroSeleccionado=null;
 	private InfoReserva reservaSeleccionada;
+	private JList<String> consultaCarroas;
 	
 	
 	private JPanel panelModificarReserva;
@@ -82,11 +86,29 @@ public class InterfazCliente extends JFrame {
 	private JTextField txtPrecio30;
 	
 	private ArrayList<JTextField> txtFields;
+	
+	private JTextField txtModelo;
+	
+	private JTextField txtPlaca;
+	
+	private JTextField txtMarca;
+
+	private JTextField txtColor;
+	
+	private JTextField txtTransmision;
+	
+	private JTextField txtEstado;
+	
+	private JTextField txtCategoria;
+	
+	private JTextField txtUbicacion;
+	
+	private JTextField txtprecio;
 	 
 	
 	
 	
-	public InterfazCliente(ArrayList<String> reservasp,ArrayList<Seguro> segurosp) {
+	public InterfazCliente(ArrayList<String> reservasp,ArrayList<Seguro> segurosp,ArrayList<Carro> carrosDisponibles) {
 		setReservas(reservasp);
 		int tamX =850;
 		int tamY=550;
@@ -136,8 +158,8 @@ public class InterfazCliente extends JFrame {
 		JLabel lbSedeDeVuelta = new JLabel("Sede donde desea entregar el carro: ");
 		txtSedeDeVuelta = new JTextField(4);
 		
-		panelReserCentroCentro.add(new JLabel("Formato de fechas y horas"));
-		panelReserCentroCentro.add(new JLabel("(YYYY.DD.MM.HH.mm) si no debes ingresar hora (YYYY.DD.MM.00.00)"));
+		panelReserCentroCentro.add(new JLabel("Formato de fechas y horas (YYYY.DD.MM.HH.mm) "));
+		panelReserCentroCentro.add(new JLabel("ingresar fecha sin hora (YYYY.DD.MM.00.00)"));
 		
 		panelReserCentroCentro.add(lbFechaSalida);
 
@@ -173,7 +195,6 @@ public class InterfazCliente extends JFrame {
                 	String elemento = (String) seguros.getItemAt(i);
                     if(seguro.equals(elemento)) {
                     	seguroSeleccionado=seguro;
-                    	System.out.println(seguroSeleccionado);
                     }
                 }
             }});
@@ -253,6 +274,7 @@ public class InterfazCliente extends JFrame {
                 	txtFechaDeVuelta.setText(reservaSeleccionada.generarFechaAenseñarE());
                 	
                 	txtSedeDeVuelta.setText(reservaSeleccionada.getSedeDevuelta());
+                	
                 }}});
 		JScrollPane scrollPane = new JScrollPane(reservas);
 		scrollPane.setPreferredSize(new Dimension(210, 150));
@@ -274,23 +296,22 @@ public class InterfazCliente extends JFrame {
                 	reservaSeleccionada.setSedeDevuelta(txtSedeDeVuelta.getText());
                 	reservaSeleccionada.setSeguro(sistemaDeReservas.encontrarSeguroDelCliente(seguroSeleccionado));
                 	reservaSeleccionada.setCarroEnReserva(carroSeleccionado);
-                	sistemaDeReservas.eliminarDocReser();
-                	sistemaDeReservas.actualizarReservas(reservaSeleccionada);
-                	try {
-						sistemaDeReservas.salavarReservas();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-                	System.out.println("Realizando acciones con: " + idReservaSeleccionada);
+//                	sistemaDeReservas.eliminarDocReser();
+//                	sistemaDeReservas.actualizarReservas(reservaSeleccionada);
+//                	try {
+//						sistemaDeReservas.salavarReservas();
+//					} catch (IOException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//                	System.out.println("Realizando acciones con: " + idReservaSeleccionada);
                 	
                 }
             }});
 		
 		panelReserEste.add(modificarReserva);
 		panelReserEste.add(new JLabel("        Carros disponibles:        "));
-		carros=new JComboBox<String>();
-		carros.addItem("carro 1");
+		setCarros(carrosDisponibles);
 		carros.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -321,20 +342,6 @@ public class InterfazCliente extends JFrame {
             		JOptionPane.showMessageDialog(InterfazCliente.this, "No tienes reservas, que esperas para hacer la tuya!!", "Sin reservas", JOptionPane.WARNING_MESSAGE);
             	}else {
             		txtNumlicencia.getText();
-
-//            		private JTextField txtSedeSalida;
-//            		
-//            		private JTextField txtFechaDeVuelta;
-//            		
-//            		private JTextField txtSedeDeVuelta;
-//            		
-//            		private JTextField txtNumTarjeta;
-//            		
-//            		private JTextField txtFechaExpiracion;
-//            		
-//            		private JTextField txtCvv;
-            		
-//            		private JTextField txtFechaVencimiento;
             		String[] partesI=txtFechaSalida.getText().split("\\.");
             		String[] partesFin=txtFechaDeVuelta.getText().split("\\.");
             		System.out.println("0"+partesI[0]);
@@ -352,7 +359,7 @@ public class InterfazCliente extends JFrame {
                     		Integer.parseInt(partesFin[4]));
                     
                     double costoTotal=sistemaDeReservas.calcularCostoReserva(fechaInicio, fechaFin);
-                    double costo30 = (costoTotal*0.3)/1000;
+                    double costo30 = (costoTotal*0.3);
                     ArrayList<Conductor> conductores=new ArrayList<Conductor>();
                     System.out.println("costo" +sistemaDeReservas.calcularCostoReserva(fechaInicio, fechaFin)); 
                 	Conductor conductor= new Conductor(new Licencia(txtNumlicencia.getText(),
@@ -373,12 +380,26 @@ public class InterfazCliente extends JFrame {
     					e1.printStackTrace();
     				}
                 	
+                   txtFechaSalida.setText(""); 
+                   txtSedeSalida.setText("");
+         		   txtFechaDeVuelta.setText("");
+         		   txtSedeDeVuelta.setText("");
+         		   txtNumTarjeta.setText("");
+         		   txtFechaExpiracion.setText("");
+         		   txtCvv.setText("");
+         		   txtNumlicencia.setText(""); 
+         		   txtPais.setText("") ;
+         		   txtFechaVencimiento.setText("");
+         		  JOptionPane.showMessageDialog(InterfazCliente.this, "precio 30%:"+costo30+"\n precio inicial total"+costoTotal, "Reserva registrada!!", JOptionPane.WARNING_MESSAGE);
             	}
+           
             	
             }});
 		panelReserEste.add(reservarVehículo);
 	
 		panelReservarVehiculo.add(panelReserEste,BorderLayout.EAST);
+		
+		setPanelInfovehiculo(carrosDisponibles);
 		
 		ImageIcon iconReser = new ImageIcon("iconos\\iconReserva.png");
 
@@ -386,17 +407,165 @@ public class InterfazCliente extends JFrame {
         Image reserNu = iconReser.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
 
         ImageIcon resizedReser = new ImageIcon(reserNu);
+		ImageIcon iconInfo = new ImageIcon("iconos\\iconoMod.png");
+
+
+        Image infoNu = iconInfo.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+
+        ImageIcon resizedInfo = new ImageIcon(infoNu);
 
 		reservarVehiculo.add("Reservar vehículo",panelReservarVehiculo);
+		reservarVehiculo.add("Consulta vehículo",panelInfovehiculo);
 
 		reservarVehiculo.setIconAt(0, resizedReser);
+		reservarVehiculo.setIconAt(1, resizedInfo);
 
 		
 		
 		add(reservarVehiculo);
 	}
-		
 	
+	public void setPanelInfovehiculo(ArrayList<Carro> carrosDisponibles) {
+		panelInfovehiculo=new JPanel();
+		panelInfovehiculo.setLayout(new BorderLayout());
+		
+		JPanel panelInfovehiculoCentro= new JPanel();
+		panelInfovehiculoCentro.setLayout(new GridLayout(13,4));
+	
+		
+		JLabel modelo = new JLabel("Modelo:");
+		txtModelo= new JTextField(4);
+		
+		JLabel placa = new JLabel("Placa:");
+		txtPlaca=new JTextField(4);
+		
+		JLabel marca = new JLabel("Marca:");
+		txtMarca = new JTextField(4);
+		
+		JLabel color = new JLabel("Color:");
+		txtColor= new JTextField(4);
+		
+		JLabel transmision = new JLabel("Transmision:");
+		txtTransmision= new JTextField(4);
+		
+		JLabel estado = new JLabel("Estado:(si tiene algún problema)");
+		txtEstado= new JTextField(4);
+		
+		JLabel ubicacion = new JLabel("Ubicacion:");
+		txtUbicacion= new JTextField(4);
+		
+		JLabel lbcategoria = new JLabel("Categoría:");
+		txtCategoria=new JTextField(4);
+		
+		JLabel lbPrecio = new JLabel("precio:");
+		txtprecio=new JTextField(4);
+		for(int i=0;i<4;i++) {
+			panelInfovehiculoCentro.add(new JLabel());
+		}
+		panelInfovehiculoCentro.add(modelo);
+		panelInfovehiculoCentro.add(txtModelo);
+		panelInfovehiculoCentro.add(new JLabel());
+		panelInfovehiculoCentro.add(new JLabel());
+		
+		panelInfovehiculoCentro.add(placa);
+		panelInfovehiculoCentro.add(txtPlaca);
+		panelInfovehiculoCentro.add(new JLabel());
+		panelInfovehiculoCentro.add(new JLabel());
+		
+		panelInfovehiculoCentro.add(marca);
+		panelInfovehiculoCentro.add(txtMarca);
+		panelInfovehiculoCentro.add(new JLabel());
+		panelInfovehiculoCentro.add(new JLabel());
+		
+		panelInfovehiculoCentro.add(color);
+		panelInfovehiculoCentro.add(txtColor);
+		panelInfovehiculoCentro.add(new JLabel());
+		panelInfovehiculoCentro.add(new JLabel());
+		
+		panelInfovehiculoCentro.add(transmision);
+		panelInfovehiculoCentro.add(txtTransmision);
+		panelInfovehiculoCentro.add(new JLabel());
+		panelInfovehiculoCentro.add(new JLabel());
+		
+		panelInfovehiculoCentro.add(estado);
+		panelInfovehiculoCentro.add(txtEstado);
+		panelInfovehiculoCentro.add(new JLabel());
+		panelInfovehiculoCentro.add(new JLabel());
+		
+		panelInfovehiculoCentro.add(ubicacion);
+		panelInfovehiculoCentro.add(txtUbicacion);
+		panelInfovehiculoCentro.add(new JLabel());
+		panelInfovehiculoCentro.add(new JLabel());
+		
+		panelInfovehiculoCentro.add(lbcategoria);
+		panelInfovehiculoCentro.add(txtCategoria);
+		panelInfovehiculoCentro.add(new JLabel());
+		panelInfovehiculoCentro.add(new JLabel());
+		
+		panelInfovehiculoCentro.add(lbPrecio);
+		panelInfovehiculoCentro.add(txtprecio);
+		panelInfovehiculoCentro.add(new JLabel());
+		panelInfovehiculoCentro.add(new JLabel());
+		
+		for(int i=0;i<4;i++) {
+			panelInfovehiculo.add(new JLabel());
+		}
+		panelInfovehiculo.add(panelInfovehiculoCentro,BorderLayout.CENTER);
+		
+		JPanel east=new JPanel();
+		consultaCarroas= new JList<String>();
+		setConsultaCarros(carrosDisponibles);
+		consultaCarroas.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                	String placaCarro = consultaCarroas.getSelectedValue();   
+                	//System.out.println(idReservaSeleccionada);
+                    Carro carroSeleccionado= sistemaDeReservas.encontrarCarro(placaCarro);
+                    txtModelo.setText(carroSeleccionado.getModelo());
+                    txtEstado.setText(carroSeleccionado.getEstado());
+                    txtTransmision.setText(carroSeleccionado.getTransmision());
+                    txtPlaca.setText(carroSeleccionado.getPlaca());
+                	
+                    txtMarca.setText(carroSeleccionado.getMarca());
+                	
+                    txtColor.setText(carroSeleccionado.getColor());
+                	
+                    txtUbicacion.setText(carroSeleccionado.getUbicacion());
+                	
+                    txtCategoria.setText(carroSeleccionado.getCategoria());
+                    txtprecio.setText( String.valueOf(carroSeleccionado.getPrecio()));
+                	
+                }}});
+		JScrollPane scrollPane = new JScrollPane(consultaCarroas);
+		
+		east.add(scrollPane);
+		panelInfovehiculo.add(east,BorderLayout.EAST);
+		
+	}
+	
+	
+	
+	
+	private void setConsultaCarros(ArrayList<Carro> carrosDisponibles) {
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+
+        for (int i = 0; i < carrosDisponibles.size(); i++) {
+            modeloLista.addElement(carrosDisponibles.get(i).getPlaca());
+        }
+
+        this.consultaCarroas = new JList<>(modeloLista);
+	}
+
+	private void setCarros(ArrayList<Carro> carrosDisponibles) {
+		this.carros=new JComboBox<String>();
+		for(int i=0;i<carrosDisponibles.size();i++) {
+			carros.addItem(carrosDisponibles.get(i).getPlaca());
+		}
+		
+	}
+
+
 	public void setSeguros( ArrayList<Seguro> seguros) {
 		this.seguros=new JComboBox<String>();
 		for(int i=0;i<seguros.size();i++) {
@@ -432,11 +601,12 @@ public class InterfazCliente extends JFrame {
 		try {
 			sistemaDeReservas.cargarReservas();
 			sistemaDeReservas.cargarSeguros();
+			sistemaDeReservas.cargarCarros();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		InterfazCliente interfazCli =new InterfazCliente(sistemaDeReservas.getIdsReservasDelCliente(),sistemaDeReservas.getSeguros());
+		InterfazCliente interfazCli =new InterfazCliente(sistemaDeReservas.getIdsReservasDelCliente(),sistemaDeReservas.getSeguros(), sistemaDeReservas.carrosDisponibles());
 		interfazCli.setLocationRelativeTo(null);
 		interfazCli.setVisible(true);		
 		

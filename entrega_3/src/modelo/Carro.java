@@ -1,7 +1,11 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -17,12 +21,12 @@ public class Carro {
     private String ubicacion;
     private boolean alquilado;
     private String disponibilidad;
-    private BigDecimal precio;
+    private float precio;
     private static ArrayList<String> historialInformes = new ArrayList<>();
 
     // Constructor para inicializar todos los atributos
     public Carro(String placa, String marca, String modelo, String color, String transmision,
-                 String estado, String categoria, String ubicacion, boolean alquilado,String disponibilidad,BigDecimal precio) {
+                 String estado, String categoria, String ubicacion, boolean alquilado,float precio) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
@@ -32,16 +36,15 @@ public class Carro {
         this.categoria = categoria;
         this.ubicacion = ubicacion;
         this.alquilado=alquilado;
-        this.disponibilidad=disponibilidad;
         this.precio=precio;
     }
 
     // Getters y Setters 
-    public BigDecimal getPrecio() {
+    public float getPrecio() {
 		return precio;
 	}
     
-    public void setPrecio(BigDecimal precio) {
+    public void setPrecio(float precio) {
 		this.precio = precio;
 	}
     
@@ -141,8 +144,7 @@ public class Carro {
     	texto+= getCategoria()+"p0";
     	texto+= getUbicacion()+"p0";
     	texto+= getAlquilado()+"p0";
-    	texto+= getDisponibilidad()+"p0";
-    	texto+=getPrecio().toString();
+    	texto+=String.valueOf(getPrecio());
     	return texto;
     }
     public String paCuando(String listopara) {
@@ -170,6 +172,33 @@ public class Carro {
 
         return informeActual;
     }
+    
+    public void guardarCarro(File archivoCarro, boolean seCreo)throws IOException, FileNotFoundException {
+    	String texto = "";
+    	if (seCreo==false) {
+    		BufferedReader docCarro = new BufferedReader(new FileReader(archivoCarro));
+    		String linea=docCarro.readLine();
+    		while (linea != null) {
+    			texto += linea + ";";
+    			linea = docCarro.readLine();
+    		}
+    		docCarro.close();
+    		texto += generarTexto();
+    		String[] lineas = texto.split(";");
+    		BufferedWriter carroDoc = new BufferedWriter(new FileWriter(archivoCarro));
+    		for (int i = 0 ;i < lineas.length; i++) {
+    			carroDoc.write(lineas[i]);
+    			carroDoc.newLine();
+    		}
+    		carroDoc.close();
+    	}else {
+    		BufferedWriter carroDoc = new BufferedWriter(new FileWriter(archivoCarro));
+    		texto += generarTexto();
+    		carroDoc.write(texto);
+    		carroDoc.close();
+    	}
+    }
+    
 
     public static void guardarHistorialEnArchivo(String nombreArchivo) {
         try {

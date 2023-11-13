@@ -36,6 +36,7 @@ public class SistemaDeReservas {
 	private ArrayList<Seguro>  seguros; 
 	private ArrayList<InfoReserva> reservas;
 	private ArrayList<Carro> carros;
+	private ArrayList<Carro> carrosDisponibles;
 	private InfoReserva reserva; 
 	private InfoReserva reservaEnCurso2;
 	private double tarifaPorDia=50000.0; 
@@ -75,6 +76,14 @@ public String identificarTemporada() {
 	        } 
 	}
 	
+public Carro encontrarCarro(String placa) {
+	for(int i=0;i<carrosDisponibles.size();i++){
+		if(carrosDisponibles.get(i).getPlaca().equals(placa) ) {
+			return carrosDisponibles.get(i);
+		}
+	}
+	return null;
+}
 
 public Cliente getClienteEnCurso() {
 	return clienteEnCurso;
@@ -94,13 +103,20 @@ public ArrayList<Conductor> cargarConductores(String conductores) throws IOExcep
 	return finalArray;
 }
 
+public ArrayList<Carro> totalCarros(){
+	return carros;
+}
+
+public  ArrayList<Carro> carrosDisponibles(){
+	return carrosDisponibles;
+}
+
 public Date generarFecha(String[] partesFecha){
 	int ano = Integer.parseInt(partesFecha[0]);
 	int mes = Integer.parseInt(partesFecha[1]);
 	int dia = Integer.parseInt(partesFecha[2]);
 	int hora = Integer.parseInt(partesFecha[3]);
-	int minuto = Integer.parseInt(partesFecha[4]);
-//	int segundo = Integer.parseInt(partesFecha[5]);
+	int minuto = Integer.parseInt(partesFecha[4]);;
 	Date fecha = new Date(ano, mes, dia,hora,minuto);
 	return fecha;
 }
@@ -168,9 +184,11 @@ public Seguro encontrarSeguroDelCliente(String cobertura) {
 	return nuevoSeguro;
 }
 
+
+
 public Seguro cargarSeguro(String infSeguro) {
 	String[] partes= infSeguro.split("'");
-	Seguro seguro=new Seguro(partes[0], generarFecha(partes[1].split("\\.")), generarFecha(partes[2].split("\\.")), partes[3]);
+	Seguro seguro=new Seguro(partes[0], partes[1], partes[2], partes[3]);
 	return seguro;
 }
 
@@ -249,11 +267,40 @@ public void cargarSeguros() throws FileNotFoundException, IOException {
 	while (linea != null) {
 		String[] partes = linea.split("'");
 		System.out.println(linea);
-		Seguro seguro=new Seguro(partes[0],generarFecha(partes[1].split("\\.")),generarFecha( partes[2].split("\\.")), partes[3]);
+		Seguro seguro=new Seguro(partes[0],partes[1],partes[2], partes[3]);
 		listaSeguro.add(seguro);
 		linea = br.readLine();
 	}
 	seguros=listaSeguro;	
+	br.close();
+}
+
+public void cargarCarros() throws FileNotFoundException, IOException {
+	FileReader fr = new FileReader("data/Carros.txt");
+	ArrayList<Carro> listaCarros=new ArrayList<Carro>();
+	ArrayList<Carro> listaCarrosDisponibles=new ArrayList<Carro>();
+	BufferedReader br = new BufferedReader(fr);
+	String linea = br.readLine();
+	while (linea != null) {
+		String[] partes = linea.split("p0");
+		for(int i=0;i<partes.length;i++) {
+			System.out.println(partes[i]);
+		}
+			
+		Carro carro=new Carro(partes[0],partes[1],partes[2], partes[3],partes[4],
+				partes[5],partes[6], partes[7],Boolean.parseBoolean(partes[8]),Float.parseFloat(partes[9]));
+		if(Boolean.parseBoolean(partes[8])==true) {
+			listaCarrosDisponibles.add(carro);
+		}
+		listaCarros.add(carro);
+		linea = br.readLine();
+		
+	}
+	carros=listaCarros;	
+	carrosDisponibles=listaCarrosDisponibles;
+	for(int i=0;i<carrosDisponibles.size();i++){
+		System.out.println(carrosDisponibles.get(i));
+	} 
 	br.close();
 }
 
@@ -297,20 +344,31 @@ public void crearReserva(InfoReserva reservaNueva) throws IOException, FileNotFo
 	
 }
 
-
-
-
-public void crearSeguro()throws IOException, FileNotFoundException{
+public void crearSeguro( Seguro nuevoSeguro)throws IOException, FileNotFoundException{
 	File archivoSeguro = new File("data/Seguros.txt");
     boolean seCreo= false;
     if (!archivoSeguro.exists()) {
     	archivoSeguro.createNewFile();
     	seCreo=true;
     }
-    Seguro nuevoSeguro= new Seguro("daños menores al 30% del valor del carro", new Date(),  new Date (),"Seguros");
     nuevoSeguro.guardarSeguro(archivoSeguro,seCreo);
     
 }
+
+public void agregarCarro( Carro nuevoCarro)throws IOException, FileNotFoundException{
+	File archivoCarro = new File("data/Carros.txt");
+    boolean seCreo= false;
+    if (!archivoCarro.exists()) {
+    	archivoCarro.createNewFile();
+    	seCreo=true;
+    }
+    nuevoCarro.guardarCarro(archivoCarro,seCreo);
+    
+}
+
+
+
+
 
 //public void cargarLicencia() {
 //	String ruta = input("Ingrese la ruta de la imagen(ej->C:\\Users\\arfie\\Downloads\\licencia.jpeg)");
@@ -374,11 +432,14 @@ public static void main(String[] args) throws FileNotFoundException, IOException
 //	Interfazlog log= new Interfazlog();
 //	log.setLocationRelativeTo(null);
 //	log.setVisible(true);	
-//	SistemaDeReservas sistemaDeReservas= new SistemaDeReservas();
+	SistemaDeReservas sistemaDeReservas= new SistemaDeReservas();
 //	sistemaDeReservas.crearReserva();
-	//sistemaDeReservas.crearSeguro();
+//	sistemaDeReservas.crearSeguro();
 //	String hello = "1";
-	//sistemaDeReservas.cargarSeguros();
+//	sistemaDeReservas.cargarSeguros();
+	sistemaDeReservas.cargarCarros();
+//	Carro carro= new Carro(null, null, null, null, null, null, null, null, false, null, null)
+//	sistemaDeReservas.agregarCarro();
 	//sistemaDeReservas.enseñarSeguros();
 	//sistemaDeReservas.cargarReservas();
 	//sistemaDeReservas.enseñarReserva();

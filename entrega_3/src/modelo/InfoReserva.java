@@ -16,7 +16,6 @@ import modelo.Conductor;
 public class InfoReserva {
 	
 	private String id;
-	//private Date tiempoReserva;
 	private Cliente cliente;
 	private String carroEnReserva;
 	private double precio30;
@@ -54,8 +53,6 @@ public class InfoReserva {
 		
 	}
 		
-	
-//Al dar click en reservar guardar la información 
 public String getNameCliente(){  
 	return cliente.getNombre();
 }
