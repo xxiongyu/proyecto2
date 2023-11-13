@@ -19,8 +19,8 @@ public class InfoReserva {
 	//private Date tiempoReserva;
 	private Cliente cliente;
 	private String carroEnReserva;
-	private float precio30;
-	private float precioServicioCompleto;
+	private double precio30;
+	private double precioServicioCompleto;
 	private ArrayList<Conductor>  conductor; 
 	private String medioDePago;
 	private Seguro seguro; 
@@ -31,7 +31,7 @@ public class InfoReserva {
 	private Date fechaInicio;
 	private Date fechaEntrega;
 	
-	public InfoReserva(String idp,float precio30p,float precioServicioCompletop,ArrayList<Conductor> coductorp,String medioDePagop,Seguro segurop, 
+	public InfoReserva(String idp,double precio30p,double precioServicioCompletop,ArrayList<Conductor> coductorp,String medioDePagop,Seguro segurop, 
 			String Temporadap,String sedeEntregap,String sedeDeVueltap, Date fechaIniciop,Date fechaEntregap,Cliente clientep,String carroEnReservap)
 	
 	{
@@ -93,7 +93,7 @@ public void setId(String id) {
 //}
 
 
-public float getPrecio30(){
+public double getPrecio30(){
 	return precio30;
 }
 
@@ -102,7 +102,7 @@ public void setPrecio30(float precio30) {
 }
 
 
-public float getPrecioServicioCompleto() {
+public double getPrecioServicioCompleto() {
 	return precioServicioCompleto;
 }
 

@@ -10,7 +10,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -29,12 +32,14 @@ public class SistemaDeReservas {
 	private String clienteLogeado;
 	private Cliente clienteEnCurso;
 	private ArrayList<InfoReserva> reservasDelCliente;
-	private ArrayList<String> idsReservasDelCliente;
+	private ArrayList<String> idsReservasDelCliente=new ArrayList<String>();
 	private ArrayList<Seguro>  seguros; 
 	private ArrayList<InfoReserva> reservas;
 	private ArrayList<Carro> carros;
 	private InfoReserva reserva; 
 	private InfoReserva reservaEnCurso2;
+	private double tarifaPorDia=50000.0; 
+	private double tarifaPorHora=10000.0;
 
 	
 //public void iniciarReserva(String tiempoReserva,float precio30,ArrayList<Conductor>  conductor,
@@ -43,9 +48,41 @@ public class SistemaDeReservas {
 //            medioDePago, seguro,  sedeEntrega, fechaInicio, cliente, carroEnReserva);
 //}
 
-public String generarId() {
+	
+	
+public double calcularCostoReserva(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        long diasDiferencia = ChronoUnit.DAYS.between(fechaInicio, fechaFin);
+        long horasDiferencia = ChronoUnit.HOURS.between(fechaInicio, fechaFin);
+
+        if (diasDiferencia >= 1) {
+            return diasDiferencia * tarifaPorDia;
+        } else {
+            return horasDiferencia * tarifaPorHora;
+        }
+    }	
+
+public String identificarTemporada() {
+	        Calendar cal = Calendar.getInstance();
+	        cal.setTime(new Date());
+
+	        int mes = cal.get(Calendar.MONTH) + 1; 
+	        if (mes >= 1 && mes <= 4) {
+	            return "Baja";
+	        } else if (mes >= 5 && mes <= 8) {
+	            return "Alta";
+	        } else  {
+	            return "media";
+	        } 
+	}
+	
+
+public Cliente getClienteEnCurso() {
+	return clienteEnCurso;
+}
+public String generarId(){
 	return Integer.toString(reservas.size()+1);
 }
+
 public ArrayList<Conductor> cargarConductores(String conductores) throws IOException{
 	ArrayList<Conductor> finalArray= new ArrayList<Conductor>();
 	String[] porConductor= conductores.split(",");
@@ -189,7 +226,7 @@ public void cargarReservas() throws FileNotFoundException, IOException {
 
 		if (partesCliente[0].equals(clienteLogeado)) {
 			clienteEnCurso=cliente;
-			idsReservasDelCliente=ids;
+			idsReservasDelCliente.add(id);
 //			this.idsReservasDelCliente= new ArrayList<String>();
 //			this.idsReservasDelCliente.add(id);
 			if(seCreo== false) {
@@ -202,7 +239,6 @@ public void cargarReservas() throws FileNotFoundException, IOException {
 		reservas.add(reserva);
 		linea = br.readLine();
 	}
-	br.close();
 }
 
 public void cargarSeguros() throws FileNotFoundException, IOException {
@@ -246,16 +282,17 @@ public void crearReserva(InfoReserva reservaNueva) throws IOException, FileNotFo
         archivo.createNewFile();
         seCreo=true;
     }
-    ArrayList<Conductor> list=new ArrayList<Conductor>(); 
-    list.add(new Conductor(new Licencia("10777222","Colombia", new Date(), null)));
-	ArrayList<String> idreservas = new ArrayList<String>();
-	idreservas.add("7");
-	idreservas.add("8");
-    InfoReserva reservaEnCurso = new InfoReserva( "8",4.5f, 4.6f, 
-    		new ArrayList<Conductor>(list),
-    		"tarjeta",new Seguro("todo", new Date(), new Date (), "compania"),
-            "alta","¨Principal","secundaria", new Date(),new Date(),
-            new Cliente("g.chaparr","3456","Jairo Fierro", "ja.fierro@uniandes.edu.co", "320555", idreservas),"XZY");
+//    ArrayList<Conductor> list=new ArrayList<Conductor>(); 
+//    list.add(new Conductor(new Licencia("10777222","Colombia", new Date())));
+//	ArrayList<String> idreservas = new ArrayList<String>();
+//	idreservas.add("7");
+////	idreservas.add("8");
+//    InfoReserva reservaEnCurso = new InfoReserva( "8",10000.0, 400000.0, 
+//    		new ArrayList<Conductor>(list),
+//    		"tarjeta",new Seguro("todo", new Date(), new Date (), "compania"),
+//            "alta","¨Principal","chapinero", new Date(),new Date(),
+//            new Cliente("g.chaparr","3456","Juan Vasquez", "j.vasquez@uniandes.edu.co", "320555", idreservas),"XZY-666");
+    
     reservaNueva.guardarReserva(archivo,seCreo);
 	
 }
