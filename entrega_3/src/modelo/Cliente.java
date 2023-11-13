@@ -54,9 +54,9 @@ public class Cliente extends usuario{
 		}
 		System.out.println(texto);
 		//texto+= getIdReserva();
-		texto+= getNombre()+":";
-		texto+= getCorreo()+":";
-		texto+= getCelular();
+//		texto+= getNombre()+":";
+//		texto+= getCorreo()+":";
+//		texto+= getCelular();
 		return texto;
 }
 }
