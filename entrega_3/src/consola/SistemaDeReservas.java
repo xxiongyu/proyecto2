@@ -42,6 +42,7 @@ public class SistemaDeReservas {
 	private double tarifaPorDia=50000.0; 
 	private double tarifaPorHora=10000.0;
 
+
 	
 //public void iniciarReserva(String tiempoReserva,float precio30,ArrayList<Conductor>  conductor,
 //		                   String medioDePago,Seguro seguro, String sedeEntrega) {

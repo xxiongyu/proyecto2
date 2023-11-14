@@ -1,10 +1,10 @@
 package modelo;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
+
+
 import modelo.Carro;
->>>>>>> refs/remotes/origin/main
+
 
 public class Admin_General extends usuario{
 	;

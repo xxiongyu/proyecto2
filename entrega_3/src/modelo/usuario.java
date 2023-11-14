@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class usuario {
@@ -22,18 +23,18 @@ public abstract class usuario {
 		return this.Password;
 	}
 
-	public static Boolean entrar(String Login, String Password, List<usuario> lista) {
+	public static Boolean entrar(String Login, String Password, ArrayList<usuario> lista) {
 		boolean enter = false; 
 		
 		int a = 0;
 		usuario instancias = lista.get(a);
 		String enter_instancia = instancias.getLogin();
-		if(Login != enter_instancia) {
+		if(!Login.equals(enter_instancia)) {
 			a += 1;
 			entrar(Login, Password, lista);
 			
 		}else{
-			if (Password == instancias.getPassword()) {
+			if (Password.equals(instancias.getPassword())) {
 				enter = true;
 			}
 			else {

@@ -27,15 +27,16 @@ public class Interfazlog extends JFrame{
 	private JLabel passwordL;
 	private JLabel titulo;
 	private JTextField txtUser;
-	private JPasswordField txtPassword;
+	private JTextField txtPassword;
 	private JButton loginButton;
 	private JButton registerButton;
 	private JTextField txtType;
-	List<usuario> lista_empleado = new ArrayList<>();
-	List<usuario> lista_adminG = new ArrayList<>();
-	List<usuario> lista_adminL = new ArrayList<>();
-	List<usuario> lista_cliente = new ArrayList<>();
+	ArrayList<usuario> lista_empleado = new ArrayList<>();
+	ArrayList<usuario> lista_adminG = new ArrayList<>();
+	ArrayList<usuario> lista_adminL = new ArrayList<>();
+	ArrayList<usuario> lista_cliente = new ArrayList<>();
 	ArrayList<String> empleadosp = new ArrayList<>();
+	
 	
 	public Interfazlog()   {
 		int tamX =600;
@@ -65,7 +66,7 @@ public class Interfazlog extends JFrame{
 		passwordL.setBounds(115, 200, 80, 25);
 		add(passwordL);
 
-		txtPassword = new JPasswordField(20);
+		txtPassword = new JTextField(20);
 		txtPassword.setBounds(195, 200, 220, 30);
 		add(txtPassword);
 		
@@ -73,6 +74,15 @@ public class Interfazlog extends JFrame{
 		txtType.setBounds(425, 150, 100,30);
 		add(txtType);
 		
+		ArrayList<String> id = new ArrayList<String>();
+		id.add("1");
+		id.add("2");
+		Cliente c1 = new Cliente("g.chaparr", "12345","pedro","clienteprueba@gmail.com","111111",id);
+		lista_cliente.add(c1);
+		Admin_General g1 = new Admin_General("generalprueba","12345");
+		lista_adminG.add(g1);
+		admin_local l1 = new admin_local("localprueba","12345");
+		lista_adminL.add(l1);
 
 		loginButton = new JButton("Entrar");
 		loginButton.setBounds(200, 255, 100, 45);
@@ -81,23 +91,28 @@ public class Interfazlog extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				String tipo_usuario = txtType.getText();
 				String login = txtUser.getText();
-				char[] pwrod = txtPassword.getPassword();
+				String pwrod = txtPassword.getText();
 				SistemaDeReservas sistemaDeReservas= new SistemaDeReservas();
 				try {
 					sistemaDeReservas.cargarReservas();
+					sistemaDeReservas.cargarSeguros();
+					sistemaDeReservas.cargarCarros();
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				if(tipo_usuario == "cliente") {
-					if (Cliente.entrar(login,pwrod,lista_cliente)) {
+				System.out.println("si entro");
+				if(tipo_usuario.equals("cliente")) {
+					System.out.println("si entro");
+					if (Cliente.entrar(login,pwrod,lista_cliente)== true) {
 						sistemaDeReservas.setClienteLogeado(login);
-						InterfazCliente interfazCli =new InterfazCliente(sistemaDeReservas.getIdsReservasDelCliente());
+						InterfazCliente interfazCli =new InterfazCliente(sistemaDeReservas.getIdsReservasDelCliente(),sistemaDeReservas.getSeguros(), sistemaDeReservas.carrosDisponibles(), sistemaDeReservas);
 						interfazCli.setLocationRelativeTo(null);
 						interfazCli.setVisible(true);
 					}
 				}
-				else if(tipo_usuario == "administrador local") {
+				else if(tipo_usuario.equals("administrador local")) {
 					if (admin_local.entrar(login,pwrod,lista_adminL)) {
 						InterfazAdminLocal interAL = new InterfazAdminLocal(empleadosp);
 						interAL.setLocationRelativeTo(null);
@@ -105,28 +120,19 @@ public class Interfazlog extends JFrame{
 					}
 					
 				}
-				else if (tipo_usuario == "adminnistrador general") {
+				else if (tipo_usuario.equals("adminnistrador general")) {
 					if (Admin_General.entrar(login, pwrod, lista_adminG)) {
-						InterfazAdminGeneral interAG = new InterfazAdminGeneral(empleadosp);
-						interAL.setLocationRelativeTo(null);
-						interAL.setVisible(true);
+						ArrayList<String> sedes = new ArrayList<String>();
+						sedes.add("Usaquen");
+						sedes.add("Chapinero");
+						sedes.add("Secundaria");
+						sedes.add("Principal");
+						InterfazAdminGeneral interAG = new InterfazAdminGeneral(sistemaDeReservas.totalCarros(),sedes,sistemaDeReservas.getSeguros());
+						interAG.setLocationRelativeTo(null);
+						interAG.setVisible(true);
 					}
-					
 				}
-				String us="kk";
-				if(us=="kk") {
-					try {
-						sistemaDeReservas.cargarReservas();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					sistemaDeReservas.setClienteLogeado(us);
-					InterfazCliente interfazCli =new InterfazCliente(sistemaDeReservas.getIdsReservasDelCliente());
-					interfazCli.setLocationRelativeTo(null);
-					interfazCli.setVisible(true);
-				}
-				
+
 			}
 		};
 		

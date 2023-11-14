@@ -108,7 +108,8 @@ public class InterfazCliente extends JFrame {
 	
 	
 	
-	public InterfazCliente(ArrayList<String> reservasp,ArrayList<Seguro> segurosp,ArrayList<Carro> carrosDisponibles) {
+	public InterfazCliente(ArrayList<String> reservasp,ArrayList<Seguro> segurosp,ArrayList<Carro> carrosDisponibles, SistemaDeReservas sistemaDeReservas) {
+		this.sistemaDeReservas = sistemaDeReservas;
 		setReservas(reservasp);
 		int tamX =850;
 		int tamY=550;
@@ -521,6 +522,7 @@ public class InterfazCliente extends JFrame {
                 if (!e.getValueIsAdjusting()) {
                 	String placaCarro = consultaCarroas.getSelectedValue();   
                 	//System.out.println(idReservaSeleccionada);
+                	SistemaDeReservas sistemaDeReservas = new SistemaDeReservas();
                     Carro carroSeleccionado= sistemaDeReservas.encontrarCarro(placaCarro);
                     txtModelo.setText(carroSeleccionado.getModelo());
                     txtEstado.setText(carroSeleccionado.getEstado());
