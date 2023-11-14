@@ -2,7 +2,16 @@ package modelo;
 
 import java.util.List;
 
-public class Empleado extends usuario{
+import javax.swing.JTextField;
+
+import consola.EmpleadoI;
+import modelo.Carro;
+import modelo.InfoReserva;
+import modelo.Cliente;
+import modelo.Sede;
+
+public class Empleado extends usuario implements EmpleadoI{
+
 	private Sede sede;
 
 	public Empleado(String log, String pword) {
@@ -29,7 +38,45 @@ public class Empleado extends usuario{
 		lista.add(customer);
 		
 	}
+    public void entregaCarros(Carro carro) {
+        carro.cambiarEstado("alquilado");
+        carro.setAlquilado(true);
+    }
+    public void devolucionCarro(Carro carro) {
+        carro.cambiarEstado("sucio");
+        carro.setAlquilado(false);
+    }
+    public void registroConductor() {
+        // Puede llamar a ese método para obtener la información deseada
+        String infoNLic = obtenerTextoInfoNLic();
+        String infoNP = obtenerTextoInfoNP();
+        String infoNV = obtenerTextoInfoNV();
+        String direccionImagen = obtenerDireccionImagen();
+
+        // Unir los Strings en uno solo
+        String informacionCompleta = infoNLic + "," + infoNP + "," + infoNV + "," + direccionImagen;
+
+        InfoReserva infoReserva = new InfoReserva();
+
+        // Llamar al método cargarConductores de la clase InfoReserva
+        String resultadoCargarConductores = infoReserva.cargarConductores(informacionCompleta);
+    }
+
+    private String obtenerTextoInfoNLic(JTextField textField) {
+        return textField.getText();
+    }
+
+    private String obtenerTextoInfoNP(JTextField textField) {
+        return textField.getText();
+    }
+
+    private String obtenerTextoInfoNV(JTextField textField) {
+        return textField.getText();
+    }
+
+    private String obtenerDireccionImagen(JTextField textField) {
+        return textField.getText();
+    }
 		
 		
 	}
-
