@@ -83,29 +83,32 @@ public class Interfazlog extends JFrame{
 		lista_adminG.add(g1);
 		admin_local l1 = new admin_local("localprueba","12345");
 		lista_adminL.add(l1);
+		SistemaDeReservas sistemaDeReservas= new SistemaDeReservas();
+		try {
+			sistemaDeReservas.cargarReservas();
+			sistemaDeReservas.cargarSeguros();
+			sistemaDeReservas.cargarCarros();
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		loginButton = new JButton("Entrar");
 		loginButton.setBounds(200, 255, 100, 45);
 		ActionListener listenLoginBtn=new ActionListener() {
 			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				String tipo_usuario = txtType.getText();
 				String login = txtUser.getText();
 				String pwrod = txtPassword.getText();
-				SistemaDeReservas sistemaDeReservas= new SistemaDeReservas();
-				try {
-					sistemaDeReservas.cargarReservas();
-					sistemaDeReservas.cargarSeguros();
-					sistemaDeReservas.cargarCarros();
-
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
 				System.out.println("si entro");
 				if(tipo_usuario.equals("cliente")) {
 					System.out.println("si entro");
 					if (Cliente.entrar(login,pwrod,lista_cliente)== true) {
+						
 						sistemaDeReservas.setClienteLogeado(login);
 						InterfazCliente interfazCli =new InterfazCliente(sistemaDeReservas.getIdsReservasDelCliente(),sistemaDeReservas.getSeguros(), sistemaDeReservas.carrosDisponibles(), sistemaDeReservas);
 						interfazCli.setLocationRelativeTo(null);
@@ -120,14 +123,14 @@ public class Interfazlog extends JFrame{
 					}
 					
 				}
-				else if (tipo_usuario.equals("adminnistrador general")) {
+				else if (tipo_usuario.equals("administrador general")) {
 					if (Admin_General.entrar(login, pwrod, lista_adminG)) {
 						ArrayList<String> sedes = new ArrayList<String>();
 						sedes.add("Usaquen");
 						sedes.add("Chapinero");
 						sedes.add("Secundaria");
 						sedes.add("Principal");
-						InterfazAdminGeneral interAG = new InterfazAdminGeneral(sistemaDeReservas.totalCarros(),sedes,sistemaDeReservas.getSeguros());
+						InterfazAdminGeneral interAG = new InterfazAdminGeneral(sistemaDeReservas.totalCarros(),sedes,sistemaDeReservas.getSeguros(),sistemaDeReservas);
 						interAG.setLocationRelativeTo(null);
 						interAG.setVisible(true);
 					}

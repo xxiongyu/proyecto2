@@ -85,8 +85,9 @@ public class InterfazAdminGeneral extends JFrame{
 	
 	
 	
-	public InterfazAdminGeneral(ArrayList<Carro> vehiculos,ArrayList<String> sedes,ArrayList<Seguro> seguros) {
+	public InterfazAdminGeneral(ArrayList<Carro> vehiculos,ArrayList<String> sedes,ArrayList<Seguro> seguros, SistemaDeReservas sistemaDeReservas) {
 		int tamX =700;
+		this.sistemaDeReservas = sistemaDeReservas;
 		int tamY=550;
 		setTitle("ADMINISTRADOR GENERAL");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

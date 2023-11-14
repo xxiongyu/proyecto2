@@ -522,7 +522,6 @@ public class InterfazCliente extends JFrame {
                 if (!e.getValueIsAdjusting()) {
                 	String placaCarro = consultaCarroas.getSelectedValue();   
                 	//System.out.println(idReservaSeleccionada);
-                	SistemaDeReservas sistemaDeReservas = new SistemaDeReservas();
                     Carro carroSeleccionado= sistemaDeReservas.encontrarCarro(placaCarro);
                     txtModelo.setText(carroSeleccionado.getModelo());
                     txtEstado.setText(carroSeleccionado.getEstado());
