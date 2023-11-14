@@ -22,7 +22,7 @@ public abstract class usuario {
 		return this.Password;
 	}
 
-	public Boolean entrar(String Login, String Password, List<usuario> lista) {
+	public static Boolean entrar(String Login, String Password, List<usuario> lista) {
 		boolean enter = false; 
 		
 		int a = 0;
