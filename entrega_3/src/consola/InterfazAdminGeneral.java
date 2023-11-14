@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -15,18 +18,24 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import modelo.Carro;
+import modelo.Seguro;
+
 public class InterfazAdminGeneral extends JFrame{
-	
+	private static SistemaDeReservas sistemaDeReservas;
 	private JTabbedPane ventanaAdminGeneral;
 
 	private JPanel pnRegistrarCarro;
 	
 	private JPanel pnTraslado;
+	
+	private JPanel pnSeguros;
 	
 	private JTextField txtModelo;
 	
@@ -40,7 +49,11 @@ public class InterfazAdminGeneral extends JFrame{
 	
 	private JTextField txtEstado;
 	
+	private JTextField txtCategoria;
+	
 	private JTextField txtUbicacion;
+	
+	private JTextField txtprecio;
 	
 	private JButton btnAgregar;
 	
@@ -56,7 +69,23 @@ public class InterfazAdminGeneral extends JFrame{
 	
 	private JButton bnEliminarVehiculo;
 	
-	public InterfazAdminGeneral(ArrayList<String> vehiculos,ArrayList<String> sedes) {
+	private JTextField txtCobertura;
+	
+	private JTextField txtPrecio;
+	
+	private JTextField txtDescripcion;
+	
+	private JTextField txtEmpresa;
+	
+	private JList<String> Seguros;
+	
+	private JButton bnModificarSeguro;
+	
+	private JButton bnAgregarSeguro;
+	
+	
+	
+	public InterfazAdminGeneral(ArrayList<Carro> vehiculos,ArrayList<String> sedes,ArrayList<Seguro> seguros) {
 		int tamX =700;
 		int tamY=550;
 		setTitle("ADMINISTRADOR GENERAL");
@@ -71,18 +100,101 @@ public class InterfazAdminGeneral extends JFrame{
 		setVehiculos(vehiculos);
 		setSedes(sedes);
 		setPnTraslado();
+		setPnSeguro(seguros);
 	
 		ImageIcon iconNuevoCar = new ImageIcon("iconos\\iconoNuevoCar.png");
 		ImageIcon iconTraslado = new ImageIcon("iconos\\iconModCar.png");
+		ImageIcon iconSeguro = new ImageIcon("iconos\\iconMod.png");
 		Image  nuevoCar = iconNuevoCar.getImage().getScaledInstance(24,24, Image.SCALE_SMOOTH);
 		Image modCar = iconTraslado.getImage().getScaledInstance(17, 17, Image.SCALE_SMOOTH);
+		Image modSeguro = iconSeguro.getImage().getScaledInstance(17, 17, Image.SCALE_SMOOTH);
 		ImageIcon resizedNuevoCar = new ImageIcon(nuevoCar);
 		ImageIcon resizedModCar = new ImageIcon(modCar);
+		ImageIcon resizedSeguro = new ImageIcon(modSeguro);
 		ventanaAdminGeneral.add("Registrar nuevo carro",pnRegistrarCarro);
     	ventanaAdminGeneral.add("Actualizar información de un carro",pnTraslado);
+    	ventanaAdminGeneral.add("Agregar Seguro",pnSeguros);
 		ventanaAdminGeneral.setIconAt(0, resizedNuevoCar);
       	ventanaAdminGeneral.setIconAt(1, resizedModCar);
+      	ventanaAdminGeneral.setIconAt(2, resizedSeguro);
 		add(ventanaAdminGeneral);
+		
+	}
+	
+	
+	public void setPnSeguro(ArrayList<Seguro> seguros) {
+		this.pnSeguros=new JPanel();
+		JPanel pnData=new JPanel();
+		pnData.setLayout(new GridLayout(4,2));
+		setSeguros(seguros);
+		JLabel lbcobertura= new JLabel("Cobertura del seguro");
+		txtCobertura= new JTextField(4);
+		JLabel lbPrecio= new JLabel("Precio:");
+		txtPrecio=new JTextField(4);
+		JLabel lbDescripcion= new JLabel("Descripcion:");
+		txtDescripcion=new JTextField(4);
+		JLabel lbEmpresa= new JLabel("Empresa que lo oferece:");
+		txtEmpresa=new JTextField(4);
+		
+		pnData.add(lbcobertura);
+		pnData.add(txtCobertura);
+		pnData.add(lbPrecio);
+		pnData.add(txtPrecio);
+		pnData.add(lbDescripcion);
+		pnData.add(txtDescripcion);
+		pnData.add(lbEmpresa);
+		pnData.add(txtEmpresa);
+		
+		pnSeguros.add(pnData, BorderLayout.CENTER);
+		JPanel pnEste=new JPanel();
+		
+		this.Seguros= new JList<String>();
+		setSeguros(seguros);
+		pnEste.add(Seguros);
+		
+//		bnModificarSeguro=new JButton("Modificar Seguro");
+		
+		bnAgregarSeguro=new JButton("Agregar Seguro");
+//		pnEste.add(bnModificarSeguro);
+		bnAgregarSeguro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+            	if(txtCobertura.getText().equals("") || txtPrecio.getText().equals("") ||
+            			txtDescripcion.getText().equals("") || txtEmpresa.getText().equals("")) {
+            		JOptionPane.showMessageDialog(InterfazAdminGeneral.this, "Llena tosdos los campos","Campos vacios", JOptionPane.WARNING_MESSAGE);
+
+            	}else {
+     
+            	Seguro nuevoSeguro =new Seguro(txtCobertura.getText(),txtPrecio.getText(), txtDescripcion.getText(),txtEmpresa.getText());
+            	try {
+					sistemaDeReservas.crearSeguro(nuevoSeguro);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	    txtCobertura.setText("");
+               	
+               	txtPrecio.setText("");
+               	
+               	txtDescripcion.setText("");
+               	
+               	txtEmpresa.setText("");
+               	setSeguros(seguros);
+            	}
+            }});
+		pnEste.add(bnAgregarSeguro);
+		pnSeguros.add(pnEste, BorderLayout.EAST);
+		
+	}
+	
+	public void setSeguros(ArrayList<Seguro> Seguros) {
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+
+        for (int i = 0; i < Seguros.size(); i++) {
+            modeloLista.addElement(Seguros.get(i).getCobertura());
+        }
+        this.Seguros = new JList<>(modeloLista);
 		
 	}
 	
@@ -98,6 +210,7 @@ public class InterfazAdminGeneral extends JFrame{
 		pnTraslado.add(lbTextField);
 		
 		pnTraslado.add(new JLabel("Vehículos en inventario"));
+		
 		JScrollPane scrollPane = new JScrollPane(vehiculos);
 		scrollPane.setBounds(30, 85, 200,150);
 		pnTraslado.add(scrollPane) ;
@@ -155,7 +268,7 @@ public class InterfazAdminGeneral extends JFrame{
 		pnRegistrarCarro.add(panelModCarroSur,BorderLayout.NORTH);
 		
 		JPanel panelModCarroCentro= new JPanel();
-		panelModCarroCentro.setLayout(new GridLayout(11,4));
+		panelModCarroCentro.setLayout(new GridLayout(13,4));
 	
 		
 		JLabel modelo = new JLabel("Modelo:");
@@ -173,12 +286,17 @@ public class InterfazAdminGeneral extends JFrame{
 		JLabel transmision = new JLabel("Transmision:");
 		txtTransmision= new JTextField(4);
 		
-		JLabel estado = new JLabel("Estado:");
+		JLabel estado = new JLabel("Estado:(si tiene algún problema)");
 		txtEstado= new JTextField(4);
 		
 		JLabel ubicacion = new JLabel("Ubicacion:");
 		txtUbicacion= new JTextField(4);
 		
+		JLabel lbcategoria = new JLabel("Categoría:");
+		txtCategoria=new JTextField(4);
+		
+		JLabel lbPrecio = new JLabel("precio:");
+		txtprecio=new JTextField(4);
 		for(int i=0;i<4;i++) {
 			panelModCarroCentro.add(new JLabel());
 		}
@@ -217,12 +335,66 @@ public class InterfazAdminGeneral extends JFrame{
 		panelModCarroCentro.add(new JLabel());
 		panelModCarroCentro.add(new JLabel());
 		
+		panelModCarroCentro.add(lbcategoria);
+		panelModCarroCentro.add(txtCategoria);
+		panelModCarroCentro.add(new JLabel());
+		panelModCarroCentro.add(new JLabel());
+		
+		panelModCarroCentro.add(lbPrecio);
+		panelModCarroCentro.add(txtprecio);
+		panelModCarroCentro.add(new JLabel());
+		panelModCarroCentro.add(new JLabel());
+		
 		for(int i=0;i<4;i++) {
 			panelModCarroCentro.add(new JLabel());
 		}
 
 		panelModCarroCentro.add(new JLabel());
 		btnAgregar= new JButton("Agregar");		
+		
+		btnAgregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	if(txtModelo.getText().equals("") || txtPlaca.getText().equals("") ||
+            		txtMarca.getText().equals("") || txtColor.getText().equals("")||
+            		txtTransmision.getText().equals("") || txtEstado.getText().equals("")|
+            		txtUbicacion.getText().equals("") ) {
+            		JOptionPane.showMessageDialog(InterfazAdminGeneral.this, "Llena tosdos los campos","Campos vacios", JOptionPane.WARNING_MESSAGE);
+            		
+            	}else {
+            		
+            		Carro carroNuevo= new Carro(txtPlaca.getText(), txtMarca.getText(),
+            				txtModelo.getText(),txtColor.getText(),txtTransmision.getText(), 
+            				txtEstado.getText(), txtCategoria.getText(), txtUbicacion.getText(),
+            				false,Float.parseFloat(txtprecio.getText()));
+            		try {
+						sistemaDeReservas.agregarCarro(carroNuevo);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+            		
+            		txtprecio.setText("");
+            		txtModelo.setText("");
+                	
+            		txtPlaca.setText("");
+            
+            		txtMarca.setText("");
+
+            		txtColor.setText("");
+       
+            		txtTransmision.setText("");
+
+            		txtEstado.setText("");
+
+            		txtUbicacion.setText("");
+            		txtCategoria.setText("");
+
+            	}
+    
+            	
+            	
+            }});
 		panelModCarroCentro.add(btnAgregar);
 
 		
@@ -230,11 +402,11 @@ public class InterfazAdminGeneral extends JFrame{
 		
 	}
 	
-	public void setVehiculos(ArrayList<String> vehiculos) {
+	public void setVehiculos(ArrayList<Carro> vehiculos) {
         DefaultListModel<String> modeloLista = new DefaultListModel<>();
 
         for (int i = 0; i < vehiculos.size(); i++) {
-            modeloLista.addElement(vehiculos.get(i));
+            modeloLista.addElement(vehiculos.get(i).getPlaca());
         }
 
         this.vehiculos = new JList<>(modeloLista);
@@ -253,18 +425,25 @@ public class InterfazAdminGeneral extends JFrame{
 	}
 	
 	public static void main(String[] args) {
+		sistemaDeReservas=new SistemaDeReservas();
+		try {
+			sistemaDeReservas.cargarSeguros();
+			sistemaDeReservas.cargarCarros();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> empleados = new ArrayList<String>();
-		empleados.add("hola casa de ");
-		empleados.add("hola");
-		empleados.add("perro");
-		empleados.add("casa");
-		empleados.add("casa");
+		empleados.add("Maria Cordoba");
+		empleados.add("Pedro Hidalgo");
+		empleados.add("Juan Diaz");
+		empleados.add("Pablo Ramirez");
 		ArrayList<String> sedes = new ArrayList<String>();
-		sedes.add("hola casa de ");
-		sedes.add("hola");
-		sedes.add("perro");
-		sedes.add("casa");
-		InterfazAdminGeneral interfazAdmin =new InterfazAdminGeneral(empleados,sedes);
+		sedes.add("Usaquen");
+		sedes.add("Chapinero");
+		sedes.add("Secundaria");
+		sedes.add("Principal");
+		InterfazAdminGeneral interfazAdmin =new InterfazAdminGeneral(sistemaDeReservas.totalCarros(),sedes,sistemaDeReservas.getSeguros());
 		interfazAdmin.setLocationRelativeTo(null);
 		interfazAdmin.setVisible(true);		
 	}

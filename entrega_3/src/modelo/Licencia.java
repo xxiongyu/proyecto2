@@ -14,7 +14,7 @@ public class Licencia {
     private BufferedImage imagen;
 
     // Constructor
-    public Licencia(String numero, String pais, Date fechaVencimiento, String pathImagen) throws IOException {
+    public Licencia(String numero, String pais, Date fechaVencimiento){
         this.numero = numero;
         this.pais = pais;
         this.fechaVencimiento = fechaVencimiento;

@@ -10,7 +10,7 @@ public class Cliente extends usuario{
 	private String nombre;
 	private String correo;
 	private String celular;
-	private ArrayList<String> idReserva;
+	private ArrayList<String> idReserva=new ArrayList<String>();
 	
 
 	public Cliente(String log, String pword, String name, String mail, String cel, ArrayList<String> idReserva) {
@@ -34,12 +34,15 @@ public class Cliente extends usuario{
 	public ArrayList<String> getIdReserva() {
 		return idReserva;
 	}
-	public void setIdReserva(ArrayList<String> idReserva) {
-		ArrayList<String> idReserva2=new ArrayList<String>();
-        for (int i = 0; i < idReserva.size(); i++) {
-        	idReserva2.add(idReserva.get(i));
+	public void setIdReserva(ArrayList<String> idReserva ) {
+		if(this.idReserva.size()==0) {
+			this.idReserva.add(idReserva.get(0));
+		}else {
+        for (int i = 0; i < this.idReserva.size(); i++) {
+        	this.idReserva.add(idReserva.get(i));
         }
-		this.idReserva = idReserva2;
+		
+	}
 	}
 	
 	public String generarTexto() {
@@ -54,9 +57,9 @@ public class Cliente extends usuario{
 		}
 		System.out.println(texto);
 		//texto+= getIdReserva();
-		texto+= getNombre()+":";
-		texto+= getCorreo()+":";
-		texto+= getCelular();
+//		texto+= getNombre()+":";
+//		texto+= getCorreo()+":";
+//		texto+= getCelular();
 		return texto;
 }
 }

@@ -16,11 +16,10 @@ import modelo.Conductor;
 public class InfoReserva {
 	
 	private String id;
-	//private Date tiempoReserva;
 	private Cliente cliente;
 	private String carroEnReserva;
-	private float precio30;
-	private float precioServicioCompleto;
+	private double precio30;
+	private double precioServicioCompleto;
 	private ArrayList<Conductor>  conductor; 
 	private String medioDePago;
 	private Seguro seguro; 
@@ -31,8 +30,7 @@ public class InfoReserva {
 	private Date fechaInicio;
 	private Date fechaEntrega;
 	
-	
-	public InfoReserva(String idp,float precio30p,float precioServicioCompletop,ArrayList<Conductor> coductorp,String medioDePagop,Seguro segurop, 
+	public InfoReserva(String idp,double precio30p,double precioServicioCompletop,ArrayList<Conductor> coductorp,String medioDePagop,Seguro segurop, 
 			String Temporadap,String sedeEntregap,String sedeDeVueltap, Date fechaIniciop,Date fechaEntregap,Cliente clientep,String carroEnReservap)
 	
 	{
@@ -54,8 +52,7 @@ public class InfoReserva {
 		fechaEntrega=fechaEntregap;
 		
 	}
-	
-//Al dar click en reservar guardar la información 
+		
 public String getNameCliente(){  
 	return cliente.getNombre();
 }
@@ -93,7 +90,7 @@ public void setId(String id) {
 //}
 
 
-public float getPrecio30(){
+public double getPrecio30(){
 	return precio30;
 }
 
@@ -102,7 +99,7 @@ public void setPrecio30(float precio30) {
 }
 
 
-public float getPrecioServicioCompleto() {
+public double getPrecioServicioCompleto() {
 	return precioServicioCompleto;
 }
 
@@ -173,8 +170,15 @@ public Date getFechaInicio() {
 	return fechaInicio;
 }
 
-public void setFechaInicio(Date fechaInicio) {
-	this.fechaInicio = fechaInicio;
+public void setFechaInicio(String fechaInicio) {
+	String[] partes= fechaInicio.split("\\.");
+	this.fechaInicio = new Date(Integer.parseInt(partes[0]), Integer.parseInt(partes[1]),
+			Integer.parseInt(partes[2]),Integer.parseInt(partes[3]),Integer.parseInt(partes[4]));
+}
+public void setFechaEntrega(String fechaEntrega) {
+	String[] partes= fechaEntrega.split("\\.");
+	this.fechaEntrega = new Date(Integer.parseInt(partes[0]), Integer.parseInt(partes[1]),
+			Integer.parseInt(partes[2]),Integer.parseInt(partes[3]),Integer.parseInt(partes[4]));
 }
 
 public void agregarConductor(Conductor conductorNuevo) {
@@ -215,15 +219,37 @@ public String generarTextoReserva() {
 }
 public String generarTextoFechaI() {
 	String texto = "";
-	//int anio=fechaInicio.getYear()+1900;
-	texto += fechaInicio.getYear() + "." + fechaInicio.getMonth() + "." + fechaInicio.getDate() + "." + fechaInicio.getHours() + "." + fechaInicio.getMinutes() + "." + fechaInicio.getSeconds();
+	int anio=fechaInicio.getYear()+1900;
+	int mes=fechaInicio.getMonth()+1;
+	String.valueOf(anio);
+	String.valueOf(mes);
+	texto += anio + "." + mes + "." + fechaInicio.getDate() + "." + fechaInicio.getHours() + "." + fechaInicio.getMinutes();
 	return texto;
 }
 
 public String generarTextoFechaE() {
 	String texto = "";
-//	int anio=fechaEntrega.getYear()+1900;
-	texto += fechaEntrega.getYear() + "." + fechaEntrega.getMonth() + "." + fechaEntrega.getDate() + "." + fechaEntrega.getHours() + "." + fechaEntrega.getMinutes() + "." + fechaEntrega.getSeconds();
+	int anio=fechaEntrega.getYear()+1900;
+	int mes=fechaEntrega.getMonth()+1;
+	String.valueOf(anio);
+	String.valueOf(mes);
+	texto += anio + "." + mes + "." + fechaEntrega.getDate() + "." + fechaEntrega.getHours() + "." + fechaEntrega.getMinutes() + "." + fechaEntrega.getSeconds();
+	return texto;
+}
+public String generarFechaAenseñarI() {
+	String texto = "";
+//	int anio=fechaInicio.getYear()-1900;
+//	String.valueOf(anio);
+	texto += fechaInicio.getYear() + "." + fechaInicio.getMonth() + "." + fechaInicio.getDate() + "." + fechaInicio.getHours() + "." + fechaInicio.getMinutes();
+	return texto;
+}
+
+public String generarFechaAenseñarE() {
+	String texto = "";
+//	int anio=fechaEntrega.getYear()-1900;
+//	String.valueOf(anio);
+	texto += fechaEntrega.getYear() + "." + fechaEntrega.getMonth() + "." + fechaEntrega.getDate() + "." + fechaEntrega.getHours() + "." + fechaEntrega.getMinutes();
+
 	return texto;
 }
 
@@ -231,6 +257,7 @@ public String generarTextoFechaE() {
 public void guardarReserva(File archivo, boolean seCreo)throws IOException, FileNotFoundException{
 	String texto = "";
 	if (seCreo==false) {
+		System.out.println("entró false");
 		BufferedReader docReserva = new BufferedReader(new FileReader(archivo));
 		String linea=docReserva.readLine();
 		while (linea != null) {
@@ -247,6 +274,7 @@ public void guardarReserva(File archivo, boolean seCreo)throws IOException, File
 		}
 		reservaDoc.close();
 	} else {
+		System.out.println("entró true");
 		BufferedWriter reservaDoc = new BufferedWriter(new FileWriter(archivo));
 		texto += generarTextoReserva();
 		reservaDoc.write(texto);
